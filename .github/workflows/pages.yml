@@ -26,34 +26,40 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
 
-      - name: Import verified premium design update
-        if: ${{ hashFiles('premium-update.zip') != '' }}
+      - name: Import verified 3D scene and original team photographs
+        if: ${{ hashFiles('refined-source.zip') != '' }}
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
           import hashlib, zipfile
           root = Path.cwd().resolve()
-          archive = root / 'premium-update.zip'
-          if hashlib.sha256(archive.read_bytes()).hexdigest() != '76fed6debd514543b5898dbb2fd757e8d7fee978c19f15830cbcf491e59a3da6':
-              raise RuntimeError('Design update failed verification')
-          expected = {'README.md': 'd8d9db37606879ba0fb96415a76f365a0ec6126d0fddfaa38ad00fc28b9f77ff', 'app/garden.tsx': '84fe5a3dc66d5d6d981b4968816600556d114432e34d7a2e4a119d032bd92a0c', 'app/layout.tsx': '1df40a669b0405ebfb3ba64c994254bb9f3913016a37ff3b05cada2923b4d682', 'app/page.tsx': '459569acfa56029062025d0fe2417d9783a63a8da88921d56737f710329b70a7', 'app/premium-experience.tsx': '52fb50ae177fa8a8a3379b9d38aa9dabc6cb36b82e8fed6e08756e4b3283585c', 'app/premium.css': '6a0b0fa263dfa1bd9354dd808e87e2b008651dceccfb325b1cbf269ea3dba96f', 'public/assets/premium-hero-prompt.txt': 'c0c4c823b35e9de90dfd9739d7bb3d6491278be7fbb31aa2d340481e3d279cbf', 'public/assets/premium-hero.png': 'f3b0071ba9a4d66ae5c7bf2dc2f7844cb229a8289c918688b463c9987b3fda89', 'public/assets/premium-hero.webp': '7fc083365c1e37e73816e2a76fde115f4a9e167de3ba2986162d58c71f8027f7'}
-          with zipfile.ZipFile(archive) as bundle:
-              if set(bundle.namelist()) != set(expected) or len(bundle.namelist()) != len(expected):
-                  raise RuntimeError('Unexpected update files')
-              for item in bundle.infolist():
-                  if not (root / item.filename).resolve().is_relative_to(root):
-                      raise RuntimeError('Invalid archive path')
-                  if hashlib.sha256(bundle.read(item)).hexdigest() != expected[item.filename]:
-                      raise RuntimeError('Invalid file: ' + item.filename)
-              bundle.extractall(root)
-          archive.unlink()
-          print('Imported verified premium design; original catalogue and product photos preserved.')
+          bundles = {'refined-source.zip': {'sha256': 'cfb4aaa771389f689adedf62a41fffc120cff425bdefa47daed0927d0b1793c1', 'files': {'README.md': '9d6b2b46b1a247fe5950f6d334ab869a18003a60bce7d5630db3b18a72e21cbc', 'app/about-team.tsx': 'ebfb087f4ae7f3f7c128a1e2cbe46f04b7a0934625a79b207dd694210513daf2', 'app/garden.tsx': '25a97b976d287bcbed8c6b494ada97c2ffeab3cfa2e1cfd6eb159b18773e5cbb', 'app/growth-experience.tsx': 'a2e670a30f6f640a0d014f840013f5d0970da308c985eef48f3141fc54ac2b69', 'app/layout.tsx': '90c5d6261a029a60c24acc7fc37360512f5729217163c5bc7ef998fa3c537c2d', 'app/page-content.tsx': 'deeb3c929e9af7187928432596d1c0c18508c1c2858bc18b9609cdc80c47af3d', 'app/premium-experience.tsx': 'a45d4f1a18a2073eaa462e26492b4a61e7ec0124a5f134064a0fba0328589812', 'app/refined.css': '9cd049a55343c019c8804cdb9eeaa8eed96a7e5e5907beaf3f0ecae99fd5c596', 'app/tree-scene.tsx': 'ae9a59f8220f8b8c2f317d06947388f2a0c7ac8f9f014b12d8047685d3656de0', 'package-lock.json': '6bf491aa0c86846f719f09bbcb15c837b3408576978ef526f27888f7b03e8ac2', 'package.json': 'def91596bc6178904d19639062cf56a05d80a2a738ab7088f248fc1453f009c7'}}, 'refined-model.zip': {'sha256': 'dfb1d90f5ec1e80d245201acd2be3235406d14d9f960d397d69687b67c71f29c', 'files': {'public/assets/trees/conifer-growth-4k.glb': 'a1c31bdf7b1361b8e1be85b1665667a77163ec37c71ab6e020e0ed35840ee8f2'}}, 'refined-photos.zip': {'sha256': '03c44e9860f4bc73aef46ab372305e40a77f0f392bbde55b3bd66d951b2b08de', 'files': {'public/assets/team/sources.json': '5b1d55c232805e5c9d73eea8cdba1f92946bc2b9a28c05aa52038064cb64e44e', 'public/assets/team/team-1.webp': '108f81bcfb70b30289d91b77b42033ee032b05363e84accfbbafe635a6d37f8e', 'public/assets/team/team-2.webp': 'b08fc7b391ca835c91bf68f2010c02a11ab1223c1cd87c3d17a7714edfb0b5ba', 'public/assets/team/team-3.webp': '44eca6fb4460b43dddce831c3d1f0ac0fa8e63542740e8d41b8520dc6f4acd14', 'public/assets/team/team-4.webp': '199dd36fdc7b01c5f1cabd8a822eb1aab9beeafe46dcab3c7bb7917076f7e821', 'public/assets/team/team-5.webp': '66936078a23d3f5e55d7c82fbdecbed16eeace66187662a422015c0498a7c497', 'public/assets/team/team-6.webp': 'ba4a32f0f7863a03a92db6755c770d296962059c75f4c0f033010d46d4c60d64', 'public/assets/trees/MODEL-LICENSES.md': '35067d12f9e079e227a8abd63e005c7e2c90494c4d643cf99e5f5ebae0c46d4b', 'public/assets/trees/conifer-growth-4k.json': 'f88b2fbd8cfba4dca6b1ace4d88c08bebda7034859973277ba6b6ba558150766', 'public/assets/trees/fir-adult-mobile.glb': '4728d3ecde76e8d49177d12f3d29c32c280b09fd82dcbdd044a6a260f3b7372d', 'public/assets/trees/fir-adult-mobile.json': '52df81ed61fa7114d76093a420fb71caceeee76a1c4e3e8baaa2dd9aeb6a3bcc', 'public/assets/trees/posters-provenance.json': '7d7aab0780fbf3084e1f25cb3092991b42bb773ddea2770bb4e8b8816857f4fd', 'public/assets/trees/tree-mature-poster-4k.webp': '53dca78c75f444d3a31b937b96b8f9f53346b789c6b32a4199778f3a425a74e1', 'public/assets/trees/tree-sprout-poster-4k.webp': '6ba88439eae590d8d0823e5674b4e8307f8fc990b9c56c34283d027f1fe43d32', 'public/assets/trees/tree-young-poster-4k.webp': '5ee490f933b297350afba4bbd5a6beaa554a33708bdf544b0a9fd7807226fef4'}}}
+          # Validate every archive before modifying the checked-out source.
+          for name, specification in bundles.items():
+              archive = root / name
+              if hashlib.sha256(archive.read_bytes()).hexdigest() != specification['sha256']:
+                  raise RuntimeError('Update archive failed verification: ' + name)
+              with zipfile.ZipFile(archive) as bundle:
+                  expected = specification['files']
+                  if set(bundle.namelist()) != set(expected) or len(bundle.namelist()) != len(expected):
+                      raise RuntimeError('Unexpected update files: ' + name)
+                  for item in bundle.infolist():
+                      if not (root / item.filename).resolve().is_relative_to(root):
+                          raise RuntimeError('Invalid archive path')
+                      if hashlib.sha256(bundle.read(item)).hexdigest() != expected[item.filename]:
+                          raise RuntimeError('Invalid file: ' + item.filename)
+          for name in bundles:
+              archive = root / name
+              with zipfile.ZipFile(archive) as bundle:
+                  bundle.extractall(root)
+              archive.unlink()
+          print('Imported verified 4K models, website source and original team photographs.')
           PY
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          git commit -m 'Redesign nursery website with premium architecture and typography'
+          git commit -m 'Enlarge 4K tree experience and restore original nursery team photographs'
           git push origin HEAD:main
 
       - name: Set up Node.js
@@ -74,8 +80,11 @@ jobs:
           npm run build
           test -f out/index.html
           test -f out/shop/index.html
+          test -f out/o-nas/index.html
           test -f out/product/el-golubaya-blyu-daymond-el-kolyuchaya/index.html
-          test -f out/assets/premium-hero.webp
+          test -f out/assets/trees/conifer-growth-4k.glb
+          test -f out/assets/trees/tree-mature-poster-4k.webp
+          for i in 1 2 3 4 5 6; do test -f out/assets/team/team-$i.webp; done
           touch out/.nojekyll
 
       - name: Configure Pages
