@@ -10,7 +10,7 @@ permissions:
 
 concurrency:
   group: github-pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   publish:
@@ -26,40 +26,34 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
 
-      - name: Import prepared source and photographs
-        if: ${{ hashFiles('bootstrap-source.zip') != '' }}
+      - name: Import verified premium design update
+        if: ${{ hashFiles('premium-update.zip') != '' }}
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          import hashlib, zipfile, json
+          import hashlib, zipfile
           root = Path.cwd().resolve()
-          expected = {
-            'bootstrap-source.zip': '320dd114009359abc89df8b489e722ae40bbdff4e1ada1bea2c9ed666a0164b8',
-            'bootstrap-assets-1.zip': '65f11f4f6a0c0fadc2ad74ba4179393f52391c9e0954786ef938dbf5a6142385',
-            'bootstrap-assets-2.zip': '0d4a81813513d3880a5579725b700713a8c8b35ba4a8db3b7dcf639c8348a3f9',
-            'bootstrap-assets-3.zip': '8641bd26cb8eda72d657bf3ed6bc6652726e0aaf724da6cc782cac16aa7f5d8b',
-          }
-          for name, digest in expected.items():
-            archive = root / name
-            if hashlib.sha256(archive.read_bytes()).hexdigest() != digest:
-              raise RuntimeError('Source archive failed verification: ' + name)
-            with zipfile.ZipFile(archive) as bundle:
+          archive = root / 'premium-update.zip'
+          if hashlib.sha256(archive.read_bytes()).hexdigest() != '76fed6debd514543b5898dbb2fd757e8d7fee978c19f15830cbcf491e59a3da6':
+              raise RuntimeError('Design update failed verification')
+          expected = {'README.md': 'd8d9db37606879ba0fb96415a76f365a0ec6126d0fddfaa38ad00fc28b9f77ff', 'app/garden.tsx': '84fe5a3dc66d5d6d981b4968816600556d114432e34d7a2e4a119d032bd92a0c', 'app/layout.tsx': '1df40a669b0405ebfb3ba64c994254bb9f3913016a37ff3b05cada2923b4d682', 'app/page.tsx': '459569acfa56029062025d0fe2417d9783a63a8da88921d56737f710329b70a7', 'app/premium-experience.tsx': '52fb50ae177fa8a8a3379b9d38aa9dabc6cb36b82e8fed6e08756e4b3283585c', 'app/premium.css': '6a0b0fa263dfa1bd9354dd808e87e2b008651dceccfb325b1cbf269ea3dba96f', 'public/assets/premium-hero-prompt.txt': 'c0c4c823b35e9de90dfd9739d7bb3d6491278be7fbb31aa2d340481e3d279cbf', 'public/assets/premium-hero.png': 'f3b0071ba9a4d66ae5c7bf2dc2f7844cb229a8289c918688b463c9987b3fda89', 'public/assets/premium-hero.webp': '7fc083365c1e37e73816e2a76fde115f4a9e167de3ba2986162d58c71f8027f7'}
+          with zipfile.ZipFile(archive) as bundle:
+              if set(bundle.namelist()) != set(expected) or len(bundle.namelist()) != len(expected):
+                  raise RuntimeError('Unexpected update files')
               for item in bundle.infolist():
-                if not (root / item.filename).resolve().is_relative_to(root):
-                  raise RuntimeError('Invalid archive path')
+                  if not (root / item.filename).resolve().is_relative_to(root):
+                      raise RuntimeError('Invalid archive path')
+                  if hashlib.sha256(bundle.read(item)).hexdigest() != expected[item.filename]:
+                      raise RuntimeError('Invalid file: ' + item.filename)
               bundle.extractall(root)
-            archive.unlink()
-          config_path = root / 'tsconfig.json'
-          config = json.loads(config_path.read_text())
-          config['exclude'] = list(dict.fromkeys(config.get('exclude', []) + ['vite.config.ts', 'build']))
-          config_path.write_text(json.dumps(config, indent=2) + '\n')
-          print('Imported verified source and all 96 image/font assets.')
+          archive.unlink()
+          print('Imported verified premium design; original catalogue and product photos preserved.')
           PY
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          git commit -m 'Publish complete nursery website source and photographs'
+          git commit -m 'Redesign nursery website with premium architecture and typography'
           git push origin HEAD:main
 
       - name: Set up Node.js
@@ -81,6 +75,7 @@ jobs:
           test -f out/index.html
           test -f out/shop/index.html
           test -f out/product/el-golubaya-blyu-daymond-el-kolyuchaya/index.html
+          test -f out/assets/premium-hero.webp
           touch out/.nojekyll
 
       - name: Configure Pages
