@@ -1,0 +1,3 @@
+import {SiteLink,SiteImage} from './site-elements';
+import {sitePath} from './site-path';
+export default function NotFound(){return <main className="not-found-page"><SiteLink href="/" className="brand"><SiteImage src="/assets/original-logo.png" alt="НЭО Питомник"/></SiteLink><p className="eyebrow">404 / СТРАНИЦА НЕ НАЙДЕНА</p><h1>Кажется, эта дорожка<br/><em>ведёт в другой сад.</em></h1><p>Вернитесь в каталог — там есть растения для вашего участка.</p><SiteLink className="button" href="/shop/">Открыть каталог ↗</SiteLink><SiteLink className="text-button" href="/">На главную →</SiteLink></main>}

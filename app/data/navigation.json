@@ -1,0 +1,211 @@
+[
+  {
+    "name": "Хвойные",
+    "slug": "hvoynye",
+    "path": "/product-category/hvoynye/",
+    "count": 73,
+    "children": [
+      {
+        "name": "Ель обыкновенная",
+        "path": "/product-category/hvoynye/el-obyknovennaya-hvoynye/",
+        "slug": "hvoynye/el-obyknovennaya-hvoynye",
+        "count": 4
+      },
+      {
+        "name": "Ель голубая",
+        "path": "/product-category/hvoynye/el-golubaya-hvoynye/",
+        "slug": "hvoynye/el-golubaya-hvoynye",
+        "count": 7
+      },
+      {
+        "name": "Туи",
+        "path": "/product-category/hvoynye/tui-hvoynye/",
+        "slug": "hvoynye/tui-hvoynye",
+        "count": 27
+      },
+      {
+        "name": "Пихта",
+        "path": "/product-category/hvoynye/pihta-hvoynye/",
+        "slug": "hvoynye/pihta-hvoynye",
+        "count": 3
+      },
+      {
+        "name": "Можжевельники",
+        "path": "/product-category/hvoynye/mozhzhevelniki-hvoynye/",
+        "slug": "hvoynye/mozhzhevelniki-hvoynye",
+        "count": 13
+      },
+      {
+        "name": "Сосна",
+        "path": "/product-category/hvoynye/sosna-hvoynye/",
+        "slug": "hvoynye/sosna-hvoynye",
+        "count": 14
+      }
+    ]
+  },
+  {
+    "name": "Лиственные",
+    "slug": "listvennye",
+    "path": "/product-category/listvennye/",
+    "count": 47,
+    "children": [
+      {
+        "name": "Клёны",
+        "path": "/product-category/listvennye/kleny/",
+        "slug": "listvennye/kleny",
+        "count": 8
+      },
+      {
+        "name": "Березы",
+        "path": "/product-category/listvennye/berezy/",
+        "slug": "listvennye/berezy",
+        "count": 2
+      },
+      {
+        "name": "Липы",
+        "path": "/product-category/listvennye/lipy/",
+        "slug": "listvennye/lipy",
+        "count": 2
+      },
+      {
+        "name": "Декоративные",
+        "path": "/product-category/listvennye/dekorativnye/",
+        "slug": "listvennye/dekorativnye",
+        "count": 27
+      },
+      {
+        "name": "Рябины",
+        "path": "/product-category/listvennye/ryabiny/",
+        "slug": "listvennye/ryabiny",
+        "count": 5
+      },
+      {
+        "name": "Бук",
+        "path": "/product-category/listvennye/buk/",
+        "slug": "listvennye/buk",
+        "count": 2
+      },
+      {
+        "name": "Каштаны",
+        "path": "/product-category/listvennye/kashtany/",
+        "slug": "listvennye/kashtany",
+        "count": 1
+      },
+      {
+        "name": "Вяз",
+        "path": "/product-category/listvennye/vyaz/",
+        "slug": "listvennye/vyaz",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "name": "Цветы и кустарники",
+    "slug": "cvety-i-kustarniki",
+    "path": "/product-category/cvety-i-kustarniki/",
+    "count": 12,
+    "children": [
+      {
+        "name": "Гортензии",
+        "path": "/product-category/cvety-i-kustarniki/gortenzii/",
+        "slug": "cvety-i-kustarniki/gortenzii",
+        "count": 4
+      },
+      {
+        "name": "Рододендроны",
+        "path": "/product-category/cvety-i-kustarniki/rododendrony/",
+        "slug": "cvety-i-kustarniki/rododendrony",
+        "count": 2
+      },
+      {
+        "name": "Аллейные кустарники",
+        "path": "/product-category/cvety-i-kustarniki/alleynye-kustarniki/",
+        "slug": "cvety-i-kustarniki/alleynye-kustarniki",
+        "count": 6
+      }
+    ]
+  },
+  {
+    "name": "Плодовые",
+    "slug": "plodovye",
+    "path": "/product-category/plodovye/",
+    "count": 43,
+    "children": [
+      {
+        "name": "Плодовые кусты",
+        "path": "/product-category/plodovye/plodovye-kusty/",
+        "slug": "plodovye/plodovye-kusty",
+        "count": 17
+      },
+      {
+        "name": "Плодовые деревья",
+        "path": "/product-category/plodovye/plodovye-derevya/",
+        "slug": "plodovye/plodovye-derevya",
+        "count": 26
+      }
+    ]
+  },
+  {
+    "name": "Товары",
+    "slug": "tovary",
+    "path": "/product-category/tovary/",
+    "count": 8,
+    "children": [
+      {
+        "name": "Грунт для хвойных",
+        "path": "/product-category/tovary/grunt-dlya-hvoynyh/",
+        "slug": "tovary/grunt-dlya-hvoynyh",
+        "count": 1
+      },
+      {
+        "name": "Керамзит",
+        "path": "/product-category/tovary/keramzit/",
+        "slug": "tovary/keramzit",
+        "count": 1
+      },
+      {
+        "name": "Мульча",
+        "path": "/product-category/tovary/mulcha/",
+        "slug": "tovary/mulcha",
+        "count": 1
+      },
+      {
+        "name": "Флоровит",
+        "path": "/product-category/tovary/florovit/",
+        "slug": "tovary/florovit",
+        "count": 1
+      },
+      {
+        "name": "Осмокот",
+        "path": "/product-category/tovary/osmokot/",
+        "slug": "tovary/osmokot",
+        "count": 1
+      },
+      {
+        "name": "Фертика",
+        "path": "/product-category/tovary/fertika/",
+        "slug": "tovary/fertika",
+        "count": 1
+      },
+      {
+        "name": "Зеленая игла",
+        "path": "/product-category/tovary/zelenaya-igla/",
+        "slug": "tovary/zelenaya-igla",
+        "count": 1
+      },
+      {
+        "name": "Корневин",
+        "path": "/product-category/tovary/kornevin/",
+        "slug": "tovary/kornevin",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "name": "Без категории",
+    "slug": "bez-kategorii",
+    "path": "/product-category/bez-kategorii/",
+    "count": 5,
+    "children": []
+  }
+]

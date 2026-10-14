@@ -1,0 +1,6 @@
+import http from 'node:http';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+const root=path.resolve('out'),base=process.env.NEXT_PUBLIC_BASE_PATH||'/neo-pitomnik',port=Number(process.env.PORT||5191);
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.webp':'image/webp','.png':'image/png','.ttf':'font/ttf','.xml':'application/xml','.txt':'text/plain'};
+http.createServer(async(req,res)=>{try{let url=decodeURIComponent(new URL(req.url,'http://localhost').pathname);if(base&&url!==base&&!url.startsWith(base+'/'))throw new Error();url=url.slice(base.length)||'/';let target=path.resolve(root,'.'+url);if(!target.startsWith(root+path.sep)&&target!==root)throw new Error();let stat=await fs.stat(target);if(stat.isDirectory())target=path.join(target,'index.html');res.setHeader('Content-Type',mime[path.extname(target)]||'application/octet-stream');res.end(await fs.readFile(target));}catch{res.statusCode=404;res.setHeader('Content-Type','text/html; charset=utf-8');res.end(await fs.readFile(path.join(root,'404.html')).catch(()=>Buffer.from('Not found')))}}).listen(port,'127.0.0.1',()=>console.log('Pages preview: http://127.0.0.1:'+port+base+'/'));
