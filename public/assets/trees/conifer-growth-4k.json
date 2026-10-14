@@ -1,0 +1,152 @@
+{
+  "file": "conifer-growth-4k.glb",
+  "bytes": 21892732,
+  "sha256": "a1c31bdf7b1361b8e1be85b1665667a77163ec37c71ab6e020e0ed35840ee8f2",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "sources": [
+    "https://polyhaven.com/a/fir_sapling_medium",
+    "https://polyhaven.com/a/fir_sapling"
+  ],
+  "authors": [
+    "Rico Cilliers (modeling)",
+    "Rob Tuytel (photography)"
+  ],
+  "groups": [
+    {
+      "name": "adult-tree",
+      "bounds": {
+        "min": [
+          -2.044273687916371,
+          -0.1179756447672844,
+          -1.9368488734828084
+        ],
+        "max": [
+          2.2243572011762587,
+          7.677277565002441,
+          2.0210852569209186
+        ]
+      },
+      "triangles": 420822
+    },
+    {
+      "name": "young-tree",
+      "bounds": {
+        "min": [
+          -0.31641375202696737,
+          -0.00007270835340023041,
+          -0.31993722324943
+        ],
+        "max": [
+          0.30576657433073934,
+          0.735627293586731,
+          0.3140755534706062
+        ]
+      },
+      "triangles": 124743
+    },
+    {
+      "name": "sprout-tree",
+      "bounds": {
+        "min": [
+          -0.07366053478781907,
+          0.000005028247833216426,
+          -0.07218430507564892
+        ],
+        "max": [
+          0.07440988438193528,
+          0.19562729358673092,
+          0.06968915033722271
+        ]
+      },
+      "triangles": 7907
+    }
+  ],
+  "textureCountBefore": 18,
+  "textureCountAfter": 10,
+  "textures": [
+    {
+      "name": "fir_sapling_medium_branches_nor_gl",
+      "width": 4096,
+      "height": 4096,
+      "alpha": false,
+      "bytes": 3188932,
+      "sha256": "b1e9131ce7535308ec39789a4e6415644cbbf0828dfede683d1c57ef6497f41a"
+    },
+    {
+      "name": "fir_sapling_medium_branches_diff",
+      "width": 4096,
+      "height": 4096,
+      "alpha": false,
+      "bytes": 2043138,
+      "sha256": "d801fe4f2464a993dbdf04abed41b9f522c3913ff09a83077c215c6de596b686"
+    },
+    {
+      "name": "fir_sapling_medium_branches_rough",
+      "width": 4096,
+      "height": 4096,
+      "alpha": false,
+      "bytes": 1687086,
+      "sha256": "35c41d177be163ed39a97fbab7dceeb9ee06a217faa636bd5af2d1816fbb28f0"
+    },
+    {
+      "name": "fir_sapling_medium_twigs_nor_gl",
+      "width": 4096,
+      "height": 4096,
+      "alpha": false,
+      "bytes": 1185534,
+      "sha256": "454e5385eb39d7ee265b5898ea6fa69495a41828f6ab43e349323f8d80ddfb2b"
+    },
+    {
+      "name": "fir_sapling_medium_twigs_diff-fir_sapling_medium_twigs_alpha",
+      "width": 4096,
+      "height": 4096,
+      "alpha": true,
+      "bytes": 1310386,
+      "sha256": "f2fc809fb849198484a82c148357f34b36c28766276451967ebf78b4e4c11547"
+    },
+    {
+      "name": "fir_sapling_medium_twigs_rough",
+      "width": 4096,
+      "height": 4096,
+      "alpha": false,
+      "bytes": 705224,
+      "sha256": "d4ee4b8932379f1902185743e0691c6cc27d7fdb33bff1da6e566b7bb434b835"
+    },
+    {
+      "name": "fir_sapling_branches_rough",
+      "width": 4096,
+      "height": 4096,
+      "alpha": false,
+      "bytes": 1750248,
+      "sha256": "e4abc0cc23312b62e70cb4552c3214fffd99d797e7b7ae67f34cb703a089a36f"
+    },
+    {
+      "name": "fir_sapling_twigs_nor_gl",
+      "width": 4096,
+      "height": 4096,
+      "alpha": false,
+      "bytes": 1039732,
+      "sha256": "5df37d44ffb3d354445e0b64616cda275bdece4d68d8db7e5a2a6a6bbb60cf07"
+    },
+    {
+      "name": "fir_sapling_twigs_diff",
+      "width": 4096,
+      "height": 4096,
+      "alpha": false,
+      "bytes": 216346,
+      "sha256": "47cb2b55badf0ea8917a1d50b6ea93a5e69baa4798a520b5663b1594da31cc07"
+    },
+    {
+      "name": "fir_sapling_twigs_rough",
+      "width": 4096,
+      "height": 4096,
+      "alpha": false,
+      "bytes": 343454,
+      "sha256": "e9260bd4212ceb1d2ab43bd09876f82d8c9ac17f5a70743a913599612e2c31c5"
+    }
+  ],
+  "processing": "Original 4K adult and young meshes and the already derived sprout mesh merged into one GLB. Only exact duplicate images/properties deduplicated. All original image SHA256 values and triangle counts verified after re-reading. No texture resize, geometry simplification, or UV changes during this merge.",
+  "sproutDerivation": "The same derived seedling geometry used for tree-sprout-poster-4k.webp: apical trunk and nearby upper needle whorls from the CC0 young sapling; no roots added. It shares the exact young-source textures.",
+  "runtime": "GLTFLoader with MeshoptDecoder. Default scene contains named groups adult-tree, young-tree and sprout-tree at origin. Client controls their visibility and independently normalizes each group height."
+}

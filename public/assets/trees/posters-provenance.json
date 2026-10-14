@@ -1,0 +1,55 @@
+{
+  "license": "CC0-1.0",
+  "source": "https://polyhaven.com",
+  "renderer": "Three.js WebGLRenderer studio, equivalent lighting and foliage coverage to app/tree-scene.tsx",
+  "posters": [
+    {
+      "stage": "mature",
+      "png": "tree-mature-poster-4k.png",
+      "webp": "tree-mature-poster-4k.webp",
+      "width": 2160,
+      "height": 3840,
+      "alpha": true,
+      "pngBytes": 3478588,
+      "webpBytes": 1125042,
+      "sha256": "53dca78c75f444d3a31b937b96b8f9f53346b789c6b32a4199778f3a425a74e1",
+      "sourceGlb": "fir-adult-4k.glb",
+      "render": "Three.js WebGLRenderer native 2160×3840 drawing buffer; soft neutral studio daylight; transparent background; actual 3D geometry and contact shadow; PNG downloaded through the visible browser export button; WebP conversion keeps exact dimensions; no raster upscaling.",
+      "pngSha256": "b27ec3475cb079ffe4a1226949232d9a5749318ce834ec54e564829defe2dd4e",
+      "runtimeMaterialOverrides": {
+        "twigAlphaCutoff": 0.12,
+        "originalGlbAlphaCutoff": 0.45,
+        "alphaToCoverage": true
+      },
+      "cameraRotationY": 0.6,
+      "correction": "Lower alpha cutoff preserves the source thin needle atlas when minified, matching the site renderer. Geometry, UVs, source 4K textures and GLB bytes remain unchanged."
+    },
+    {
+      "stage": "young",
+      "png": "tree-young-poster-4k.png",
+      "webp": "tree-young-poster-4k.webp",
+      "width": 2160,
+      "height": 3840,
+      "alpha": true,
+      "pngBytes": 2055682,
+      "webpBytes": 438880,
+      "sha256": "5ee490f933b297350afba4bbd5a6beaa554a33708bdf544b0a9fd7807226fef4",
+      "sourceGlb": "fir-young-4k.glb",
+      "render": "Three.js WebGLRenderer native 2160×3840 drawing buffer; soft neutral studio daylight; transparent background; actual 3D geometry and contact shadow; PNG downloaded via visible browser button; WebP conversion keeps exact dimensions; no raster upscaling"
+    },
+    {
+      "stage": "sprout",
+      "png": "tree-sprout-poster-4k.png",
+      "webp": "tree-sprout-poster-4k.webp",
+      "width": 2160,
+      "height": 3840,
+      "alpha": true,
+      "pngBytes": 1653814,
+      "webpBytes": 259368,
+      "sha256": "6ba88439eae590d8d0823e5674b4e8307f8fc990b9c56c34283d027f1fe43d32",
+      "sourceGlb": "fir-seedling-4k.glb",
+      "render": "Three.js WebGLRenderer native 2160×3840 drawing buffer; soft neutral studio daylight; transparent background; actual 3D geometry and contact shadow; PNG downloaded via visible browser button; WebP conversion keeps exact dimensions; no raster upscaling",
+      "derivation": "Small seedling illustration derived from the apical trunk and upper needle whorls of the original 3D sapling. No roots added."
+    }
+  ]
+}

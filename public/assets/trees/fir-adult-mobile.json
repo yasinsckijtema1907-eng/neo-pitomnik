@@ -1,0 +1,54 @@
+{
+  "file": "fir-adult-mobile.glb",
+  "bytes": 9275564,
+  "source": "fir-adult-4k.glb",
+  "sourceUrl": "https://polyhaven.com/a/fir_sapling_medium",
+  "license": "CC0-1.0",
+  "textures": [
+    {
+      "name": "fir_sapling_medium_branches_nor_gl",
+      "width": 2048,
+      "height": 2048,
+      "alpha": false,
+      "bytes": 901376
+    },
+    {
+      "name": "fir_sapling_medium_branches_diff",
+      "width": 2048,
+      "height": 2048,
+      "alpha": false,
+      "bytes": 674970
+    },
+    {
+      "name": "fir_sapling_medium_branches_rough",
+      "width": 2048,
+      "height": 2048,
+      "alpha": false,
+      "bytes": 391758
+    },
+    {
+      "name": "fir_sapling_medium_twigs_nor_gl",
+      "width": 2048,
+      "height": 2048,
+      "alpha": false,
+      "bytes": 329434
+    },
+    {
+      "name": "fir_sapling_medium_twigs_diff-fir_sapling_medium_twigs_alpha",
+      "width": 2048,
+      "height": 2048,
+      "alpha": true,
+      "bytes": 484364
+    },
+    {
+      "name": "fir_sapling_medium_twigs_rough",
+      "width": 2048,
+      "height": 2048,
+      "alpha": false,
+      "bytes": 186086
+    }
+  ],
+  "geometry": "Original Meshopt geometry retained; native 4K textures downsampled to real 2K for optional mobile viewer.",
+  "triangles": 420822,
+  "sha256": "4728d3ecde76e8d49177d12f3d29c32c280b09fd82dcbdd044a6a260f3b7372d"
+}

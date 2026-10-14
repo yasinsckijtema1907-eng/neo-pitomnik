@@ -1,0 +1,5 @@
+import {SiteImage} from './site-elements';
+
+export function AboutTeam() {
+ return <section id="team" className="about-team section-pad"><div className="section-heading"><div><p className="eyebrow">ЛЮДИ ПИТОМНИКА</p><h2>Сад начинается<br/><em>с людей.</em></h2></div><p className="team-intro">Менеджеры, ландшафтные дизайнеры и штатный агроном-фитопатолог. Одна команда, которая помогает вашему саду расти.</p></div><figure className="team-wide"><SiteImage src="/assets/editorial/nursery-about-2.webp" alt="Команда НЭО Питомника — оригинальная общая фотография" width={1920} height={409} loading="lazy"/><figcaption>НЭО / ЛЮДИ, КОТОРЫЕ ЗАБОТЯТСЯ О ВАШЕМ САДЕ</figcaption></figure><div className="team-gallery">{[1,2,3,4,5,6].map(i=><figure key={i}><SiteImage src={'/assets/team/team-'+i+'.webp'} alt={'Команда НЭО Питомника — оригинальный портрет '+i} width={[1,2,4].includes(i)?768:1236} height={[1,2,4].includes(i)?811:1306} loading="lazy"/><figcaption><span>0{i}</span><span>КОМАНДА НЭО</span></figcaption></figure>)}</div></section>;
+}

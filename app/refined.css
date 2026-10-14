@@ -1,0 +1,50 @@
+.botanical-studio{height:270vh;background:#e4e5d8;color:var(--forest);border-top:1px solid #d3d8c6;border-bottom:1px solid #d3d8c6}
+.botanical-studio .growth-sticky{grid-template-columns:31% 69%;gap:0;height:calc(100svh - 84px);max-height:none;padding:48px var(--gutter) 32px;min-height:620px}
+.botanical-studio .growth-copy{position:relative;z-index:3;padding-right:24px}
+.botanical-studio .growth-copy h2{font-size:clamp(44px,4.25vw,80px);line-height:.96}
+.botanical-studio .growth-copy h2 em{color:#756449}
+.botanical-studio .growth-copy .eyebrow{color:var(--muted)}
+.botanical-studio .growth-intro{font-size:12px;color:var(--muted);margin-top:24px}
+.botanical-studio .growth-stages{width:min(100%,285px);margin:34px 0 28px}
+.botanical-studio .growth-stages button{padding:13px 0;color:#66735e;border-color:#bdc6ad;font-size:12px;gap:20px}
+.botanical-studio .growth-stages button.active{color:var(--forest);font-weight:600}
+.botanical-studio .growth-stages button.passed{color:var(--forest)}
+.botanical-studio .growth-visual{min-width:0;align-self:stretch}
+.botanical-studio .growth-marker{color:var(--muted);font-size:8px;letter-spacing:.13em}
+.botanical-studio .growth-ground{display:none}
+.botanical-studio .tree-stage{position:relative;overflow:hidden;min-height:0}
+.botanical-studio .tree-frame img{height:116%;max-height:none;max-width:100%;position:relative;bottom:-3%;object-position:center bottom}
+.botanical-studio .growth-caption{grid-template-columns:50px 1fr;gap:18px;max-width:600px;margin-top:20px;align-self:center;width:90%}
+.botanical-studio .growth-caption>span{color:var(--muted);font-size:8px}
+.botanical-studio .growth-caption h3{font-size:38px}
+.botanical-studio .growth-caption p{font-size:11px;max-width:none;min-height:0;color:var(--muted);margin-top:9px}
+.botanical-studio .growth-progress{margin-top:22px;background:#bec8b0}
+.botanical-studio .growth-progress>div{background:var(--forest)}
+.botanical-studio .growth-footnote{color:var(--muted);font-size:8px}
+.botanical-studio .seed-scene{bottom:9%}
+.tree-webgl{position:absolute;inset:0;z-index:2;opacity:0;pointer-events:none;touch-action:pan-y pinch-zoom;cursor:grab}
+.tree-webgl.tree-ready{opacity:1;pointer-events:auto}
+.tree-webgl.tree-ready:active{cursor:grabbing}
+.tree-webgl canvas{width:100%;height:100%;display:block}
+.native-tree-ready .tree-fallback{visibility:hidden}
+.tree-controls{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:15px;white-space:nowrap;color:var(--muted)}
+.tree-controls>button{height:37px;width:37px;border:1px solid #b2bea3;display:flex;align-items:center;justify-content:center;background:rgba(228,229,216,.85);color:var(--forest)}
+.tree-controls>span{font-size:8px}
+.tree-enable{position:absolute;bottom:10px;right:5px;background:var(--forest);color:var(--paper);border:1px solid var(--forest);font-size:10px;display:flex;align-items:center;gap:16px;padding:12px 16px;z-index:4}
+.about-wide-photo img{height:auto;object-fit:contain}
+.about-team{border-top:1px solid var(--line);padding-top:85px;padding-bottom:110px}
+.team-intro{font-size:13px;max-width:390px;line-height:1.9}
+.team-wide img{width:100%;height:auto;object-fit:contain}
+.team-wide figcaption{font-size:8px;letter-spacing:.14em;color:var(--muted);margin-top:18px}
+.team-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:48px 30px;margin-top:65px}
+.team-gallery figure{min-width:0}
+.team-gallery img{width:100%;height:auto;object-fit:contain;background:var(--sage)}
+.team-gallery figcaption{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:19px;padding-top:13px;color:var(--muted);font-size:8px;letter-spacing:.12em}
+.team-gallery figcaption>span:first-child{font-size:9px;letter-spacing:.04em;color:var(--copper)}
+.premium-hero-copy>.eyebrow{color:#62705c}
+.premium-hero-photo figcaption{border-top:1px solid #dbdccf;background:rgba(244,241,233,.94)}
+@media(min-width:1800px){.botanical-studio .growth-stages button{font-size:14px}.botanical-studio .growth-intro{font-size:14px}.botanical-studio .growth-caption p{font-size:13px}.team-intro{font-size:15px}}
+@media(max-width:1120px){.botanical-studio .growth-sticky{grid-template-columns:35% 65%;padding-top:38px;padding-bottom:27px}.botanical-studio .growth-copy h2{font-size:48px}.botanical-studio .growth-copy{padding-right:14px}.botanical-studio .growth-stages button{font-size:11px;gap:15px}.botanical-studio .growth-caption h3{font-size:32px}.tree-controls>span{font-size:7px}.team-gallery{gap:38px 23px}}
+@media(max-width:760px){.botanical-studio{height:280vh;scroll-margin-top:72px}.botanical-studio .growth-sticky{top:72px;height:calc(100svh - 72px);min-height:calc(100svh - 72px);display:flex;flex-direction:column;padding:25px 24px 20px;gap:10px}.botanical-studio .growth-copy{padding:0}.botanical-studio .growth-copy>.eyebrow{font-size:7px;margin-bottom:14px}.botanical-studio .growth-copy h2{font-size:40px;line-height:.99}.botanical-studio .growth-copy h2 br{display:none}.botanical-studio .growth-intro{font-size:9px;margin-top:12px}.botanical-studio .growth-intro br{display:none}.botanical-studio .growth-stages{display:grid;width:100%;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:19px 0 0}.botanical-studio .growth-stages button{font-size:7px;padding:8px 0;border-top:1px solid #b1bea2;border-bottom:0;gap:5px;line-height:1.5}.botanical-studio .growth-stages button.active{border-top-color:var(--forest)}.botanical-studio .growth-visual{width:100%;max-height:none;min-height:0;flex:1}.botanical-studio .tree-stage{min-height:150px}.botanical-studio .growth-marker{font-size:6px;top:7px}.botanical-studio .tree-frame img{height:116%;max-width:100%;bottom:-3%}.botanical-studio .growth-caption{width:100%;grid-template-columns:34px 1fr;gap:12px;margin-top:6px}.botanical-studio .growth-caption>span{font-size:7px;padding-top:7px}.botanical-studio .growth-caption h3{font-size:29px}.botanical-studio .growth-caption p{font-size:8px;line-height:1.7;min-height:0;margin-top:6px}.botanical-studio .growth-progress{margin-top:13px}.botanical-studio .growth-footnote{font-size:6px;margin-top:9px}.tree-controls{bottom:4px;gap:10px}.tree-controls>button{width:35px;height:35px}.tree-controls>span{font-size:6px}.tree-enable{font-size:8px;padding:10px 12px;gap:11px;bottom:8px;right:4px}.about-team{padding-top:55px;padding-bottom:65px}.team-intro{font-size:11px;max-width:none}.team-wide figcaption{font-size:6px;margin-top:12px;letter-spacing:.09em}.team-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:29px 15px;margin-top:34px}.team-gallery figcaption{font-size:6px;letter-spacing:.05em;margin-top:12px;padding-top:10px}.team-gallery figcaption>span:first-child{font-size:7px}.about-wide-photo img{height:auto}.hero-bottom>span{display:none}}
+@media(max-height:700px) and (max-width:760px){.botanical-studio .growth-copy h2{font-size:34px}.botanical-studio .growth-intro{display:none}.botanical-studio .growth-copy>.eyebrow{margin-bottom:10px}.botanical-studio .growth-stages{margin-top:14px}.botanical-studio .growth-sticky{padding-top:21px;padding-bottom:15px}.botanical-studio .growth-caption h3{font-size:26px}}
+@media(prefers-reduced-motion:reduce){.botanical-studio{height:auto}.botanical-studio .growth-sticky{position:relative;top:0;height:850px;min-height:0}.botanical-studio .growth-stages,.botanical-studio .growth-intro{display:none}.botanical-studio .tree-frame:last-of-type{opacity:1}.botanical-studio .growth-visual{min-height:280px}}

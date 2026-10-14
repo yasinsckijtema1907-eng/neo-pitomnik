@@ -1,6 +1,7 @@
 import {sitePath,siteUrl} from './site-path';
 import type { Metadata } from 'next';
 import './premium.css';
+import './refined.css';
 export const metadata: Metadata = {
   title: 'НЭО Питомник — искусство живого сада',
   description: 'Растения из собственного питомника: хвойные, лиственные, плодовые и цветущие кустарники. Подбор агронома, посадка и уход за садом. Истра, Падиково.',
