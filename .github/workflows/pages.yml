@@ -1,0 +1,96 @@
+name: Publish nursery site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Import prepared source and photographs
+        if: ${{ hashFiles('bootstrap-source.zip') != '' }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, zipfile, json
+          root = Path.cwd().resolve()
+          expected = {
+            'bootstrap-source.zip': '320dd114009359abc89df8b489e722ae40bbdff4e1ada1bea2c9ed666a0164b8',
+            'bootstrap-assets-1.zip': '65f11f4f6a0c0fadc2ad74ba4179393f52391c9e0954786ef938dbf5a6142385',
+            'bootstrap-assets-2.zip': '0d4a81813513d3880a5579725b700713a8c8b35ba4a8db3b7dcf639c8348a3f9',
+            'bootstrap-assets-3.zip': '8641bd26cb8eda72d657bf3ed6bc6652726e0aaf724da6cc782cac16aa7f5d8b',
+          }
+          for name, digest in expected.items():
+            archive = root / name
+            if hashlib.sha256(archive.read_bytes()).hexdigest() != digest:
+              raise RuntimeError('Source archive failed verification: ' + name)
+            with zipfile.ZipFile(archive) as bundle:
+              for item in bundle.infolist():
+                if not (root / item.filename).resolve().is_relative_to(root):
+                  raise RuntimeError('Invalid archive path')
+              bundle.extractall(root)
+            archive.unlink()
+          config_path = root / 'tsconfig.json'
+          config = json.loads(config_path.read_text())
+          config['exclude'] = list(dict.fromkeys(config.get('exclude', []) + ['vite.config.ts', 'build']))
+          config_path.write_text(json.dumps(config, indent=2) + '\n')
+          print('Imported verified source and all 96 image/font assets.')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Publish complete nursery website source and photographs'
+          git push origin HEAD:main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Build all website pages
+        env:
+          NEXT_PUBLIC_BASE_PATH: /neo-pitomnik
+          NEXT_PUBLIC_SITE_ORIGIN: https://yasinsckijtema1907-eng.github.io
+          NEXT_TELEMETRY_DISABLED: '1'
+        run: |
+          npm run build
+          test -f out/index.html
+          test -f out/shop/index.html
+          test -f out/product/el-golubaya-blyu-daymond-el-kolyuchaya/index.html
+          touch out/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+      - name: Publish GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
