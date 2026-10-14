@@ -1,0 +1,9 @@
+Mode: built-in image_gen tool, new image generation, transparent_background=false
+
+Use case: photorealistic-natural
+Asset type: premium nursery website hero photograph, portrait 4:5 aspect ratio.
+Primary request: one ultra-photorealistic high-end architectural garden editorial photograph. A quiet, restrained outdoor space with a mature sculptural spruce or pine as the main subject, deep textured natural greens, weathered pale limestone path and low steps, soft ornamental grasses, and one simple pale stone seating block. An elegant contemporary beige limestone villa is only partially visible in the background.
+Composition/framing: human eye-level camera, sophisticated medium-format editorial photography, portrait 4:5 full-frame photograph. Balanced asymmetrical composition designed for the RIGHT half of a split homepage, with a strong natural tree silhouette and a path leading gently into the garden. Tree canopy may extend naturally toward frame edges. This is an atmospheric editorial scene, not a named cultivar product photograph.
+Lighting/mood: very delicate morning sidelight, calm and atmospheric, restrained color grading, nuanced green shadows and softly warm stone. Realistic brightness and depth.
+Materials/textures: exceptional true-to-life foliage, individual needles and leaves, subtle irregularity in grasses, natural limestone grain, small weathering imperfections. Lush layered foliage rather than sterile rendering.
+Constraints: no text, no logos, no people, no watermark, no graphic mockup. No illustration, no 3D-render appearance, no artificial repeated leaf patterns, no excessive sun flare. The image should feel like an authentic editorial garden photograph, not a company portfolio claim.
