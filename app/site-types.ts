@@ -3,7 +3,7 @@ export type Product={id:number;name:string;group?:string;category:string;categor
 export type Catalog={products:Product[];count:number};
 export type Category={name:string;group:string;path:string;isGroup:boolean};
 export type Post={id:number;slug:string;title:string;date:string;excerpt:string;image:string|null;sourceUrl:string;blocks:{type:string;text?:string;items?:string[]}[]};
-export type View='home'|'catalog'|'category'|'sale'|'product'|'about'|'services'|'service'|'blog'|'article'|'contacts'|'selection';
+export type View='home'|'catalog'|'category'|'sale'|'product'|'about'|'services'|'service'|'blog'|'article'|'contacts'|'selection'|'buyer';
 export type SiteProps={view?:View;initialCatalog?:Catalog;category?:Category;product?:Product;posts?:Post[];post?:Post;serviceSlug?:string};
 export const productPath=(p:Product)=>new URL(p.url).pathname;
 export const money=(n:number)=>new Intl.NumberFormat('ru-RU').format(n)+' ₽';

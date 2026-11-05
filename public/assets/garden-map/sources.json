@@ -1,0 +1,74 @@
+[
+  {
+    "section": "conifers",
+    "original_url": "https://neo-pitomnik.ru/wp-content/uploads/2026/04/hf_20260406_145459_1e139494-3f0a-4823-a83f-787ee227a153_01-scaled.jpg",
+    "source_url": "https://neo-pitomnik.ru/wp-content/uploads/2026/04/hf_20260406_145459_1e139494-3f0a-4823-a83f-787ee227a153_01-1207x2048.jpg",
+    "source_sha256": "b4adc42f779fc23df6a321ddd6f89abdb9f01ac8a6bac26499676e18c01a801d",
+    "files": [
+      {
+        "file": "conifers.webp",
+        "bytes": 364154,
+        "sha256": "49c935b08c6e0984e4a223e8038d8375f1e2fae4bce024f75c28b4b0b7f2f953"
+      },
+      {
+        "file": "conifers-472.webp",
+        "bytes": 99254,
+        "sha256": "1dce41224e2d296aa478f32a0d249aabcc1564c2dedb04bd0c4f2866432988e7"
+      }
+    ]
+  },
+  {
+    "section": "deciduous",
+    "original_url": "https://neo-pitomnik.ru/wp-content/uploads/2026/04/hf_20260406_145459_1e139494-3f0a-4823-a83f-787ee227a153_02-scaled.jpg",
+    "source_url": "https://neo-pitomnik.ru/wp-content/uploads/2026/04/hf_20260406_145459_1e139494-3f0a-4823-a83f-787ee227a153_02-1207x2048.jpg",
+    "source_sha256": "69683d2772b887d9ec21910e2ddf9c43abeab2a30b63479c63aa595cf740663d",
+    "files": [
+      {
+        "file": "deciduous.webp",
+        "bytes": 412460,
+        "sha256": "ba843c0bd3e14458d97b4882e230ad80ec8d6698500c2e1af82b77085b75db16"
+      },
+      {
+        "file": "deciduous-472.webp",
+        "bytes": 106752,
+        "sha256": "da569b9e5ac1c1426598367fe488f3beef7614bbb6f081803a5bbb8f34f48e10"
+      }
+    ]
+  },
+  {
+    "section": "flowers",
+    "original_url": "https://neo-pitomnik.ru/wp-content/uploads/2026/04/hf_20260406_145459_1e139494-3f0a-4823-a83f-787ee227a153_03-scaled.jpg",
+    "source_url": "https://neo-pitomnik.ru/wp-content/uploads/2026/04/hf_20260406_145459_1e139494-3f0a-4823-a83f-787ee227a153_03-1207x2048.jpg",
+    "source_sha256": "6649694b23eebc8f024ec1ec034b369fbe8191cb15c3ba7264b7e4dffb0f6e31",
+    "files": [
+      {
+        "file": "flowers.webp",
+        "bytes": 408622,
+        "sha256": "83b06db6c96d5524da0547ef0f1ff56bf740a3d19af2beff762e7dccb6eb00ae"
+      },
+      {
+        "file": "flowers-472.webp",
+        "bytes": 111872,
+        "sha256": "65b3ff946ad87d5aba320e3e156771df4b017720e651d24094e207fa1ddc4b5a"
+      }
+    ]
+  },
+  {
+    "section": "fruit",
+    "original_url": "https://neo-pitomnik.ru/wp-content/uploads/2026/04/hf_20260406_145459_1e139494-3f0a-4823-a83f-787ee227a153_04-scaled.jpg",
+    "source_url": "https://neo-pitomnik.ru/wp-content/uploads/2026/04/hf_20260406_145459_1e139494-3f0a-4823-a83f-787ee227a153_04-1207x2048.jpg",
+    "source_sha256": "aeb01800f7b883be858c068f4f28056033392809e2c81af783a35ad6e32a9820",
+    "files": [
+      {
+        "file": "fruit.webp",
+        "bytes": 404036,
+        "sha256": "fbdbe79dd7370be14b5ae29af132394dcb3bbb695f430fcc921172778238e6a8"
+      },
+      {
+        "file": "fruit-472.webp",
+        "bytes": 112886,
+        "sha256": "58fd2ea8be47a35d650a354a6dbd67153cb20dec0ede2c24e183e528a00fb681"
+      }
+    ]
+  }
+]

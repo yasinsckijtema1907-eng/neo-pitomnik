@@ -1,0 +1,198 @@
+/* The four original frames make one continuous garden on wide screens. */
+.brand-original{width:clamp(112px,10.4vw,154px);height:auto}
+.nov-home-hero{max-width:1920px;margin:auto;padding:32px var(--gutter) 18px}
+.nov-hero-intro{display:grid;grid-template-columns:1.4fr minmax(300px,.65fr);align-items:end;gap:clamp(32px,6vw,110px);margin-bottom:26px}
+.nov-location{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:9px}
+.nov-hero-intro h1{font-size:clamp(62px,6.3vw,112px);line-height:.87;letter-spacing:-.052em;color:var(--forest)}
+.nov-hero-intro h1 em,.nov-about-intro h1 em,.nov-journal-intro h1 em{color:#756448}
+.nov-hero-copy{max-width:390px;justify-self:end}
+.nov-hero-copy>p{font-size:clamp(12px,1vw,15px);max-width:350px;margin-bottom:17px;line-height:1.75}
+.nov-hero-copy>div{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
+.nov-hero-copy .button{min-height:43px;padding:11px 16px;font-size:11px;gap:15px}
+.nov-hero-copy .text-button{font-size:11px;gap:9px}
+.nov-map{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));height:clamp(330px,calc(100svh - 344px),710px);overflow:hidden;isolation:isolate;background:#314939}
+.nov-map-panel{position:relative;display:block;min-width:0;min-height:0;isolation:isolate;overflow:hidden;color:var(--white)}
+.nov-map-panel:not(:last-child){border-right:1px solid rgb(255 255 255 / .2)}
+.nov-map-photo{width:100%;height:100%;object-fit:cover;object-position:50% 57%}
+.nov-map-panel:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgb(9 24 16 / .12),transparent 45%,rgb(9 24 16 / .36));opacity:.52;pointer-events:none;transition:opacity 180ms var(--ease-out)}
+.nov-map-label{position:absolute;z-index:2;bottom:15px;left:13px;right:13px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:9px;min-height:96px;padding:13px 11px 13px 15px;background:rgb(16 33 24 / .65);border:1px solid rgb(255 255 255 / .24);backdrop-filter:blur(7px);transition:transform 180ms var(--ease-out)}
+.nov-map-label small{display:block;font-size:8px;font-weight:650;letter-spacing:.13em;color:#dce7d8;margin-bottom:5px;line-height:1.3}
+.nov-map-label strong{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(20px,2.15vw,36px);font-weight:600;line-height:.97;letter-spacing:-.025em}
+.nov-arrow{width:41px;height:41px;border-radius:50%;border:1px solid currentColor;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.nov-arrow>svg{transition:transform 160ms var(--ease-out)}
+.nov-map-label .nov-arrow{width:34px;height:34px;border-color:rgb(255 255 255 / .55)}
+.nov-map-label .nov-arrow>svg{width:17px}
+.nov-map-detail{position:absolute;z-index:2;top:14px;left:13px;right:13px;width:fit-content;max-width:calc(100% - 26px);padding:7px 10px;background:rgb(14 33 22 / .8);font-size:10px;font-weight:600;line-height:1.4;opacity:0;transform:translateY(4px);transition:opacity 160ms var(--ease-out),transform 160ms var(--ease-out);pointer-events:none}
+.nov-map-panel:focus-visible{outline:2px solid #fff4d9;outline-offset:-5px;z-index:3}
+.nov-map-panel:focus-visible .nov-map-detail{opacity:1;transform:none;transition:none}
+.nov-map-panel:focus-visible:after{opacity:1;transition:none}
+.nov-map-note{display:flex;justify-content:space-between;align-items:center;gap:10px 20px;color:var(--muted);font-size:11px;margin-top:11px}
+.nov-map-note a,.nov-map-note>div{display:flex;align-items:center;gap:8px}
+.nov-map-note>div{gap:20px;flex-wrap:wrap}
+.nov-map-note a{min-height:27px;color:var(--forest);font-weight:600}
+.nov-text-link{display:inline-flex;align-items:center;gap:13px;margin-top:24px;color:var(--forest);font-size:13px;font-weight:600}
+.nov-text-link .nov-arrow{width:37px;height:37px}
+.nov-nursery,.nov-journal-feature,.nov-history{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:clamp(32px,6vw,100px)}
+.nov-nursery{background:#e9ebdf;padding-top:78px;padding-bottom:78px}
+.nov-nursery-photo img{width:100%;aspect-ratio:1.65;object-fit:cover;object-position:59% 50%}
+.nov-nursery-photo figcaption{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:11px;color:var(--muted)}
+.nov-nursery h2,.nov-journal-feature h2{font-size:clamp(45px,4.7vw,81px)}
+.nov-nursery h2+p,.nov-nursery-outro h2+p{max-width:470px;font-size:14px;margin-top:20px}
+.nov-about-hero,.nov-journal-page{padding-top:30px;padding-bottom:65px}
+.nov-about-hero>.breadcrumbs,.nov-journal-page>.breadcrumbs{margin-bottom:clamp(33px,4vw,62px)}
+.nov-about-intro,.nov-journal-intro{display:grid;grid-template-columns:1.35fr .65fr;gap:32px;align-items:end;margin-bottom:36px}
+.nov-about-intro h1,.nov-journal-intro h1{font-size:clamp(54px,6.1vw,106px);line-height:.9}
+.nov-about-intro>div:last-child{justify-self:end;max-width:360px}
+.nov-about-intro>div:last-child>p,.nov-journal-intro>p{font-size:14px;line-height:1.75;margin-bottom:18px}
+.nov-about-intro .button{min-height:45px;padding:12px 18px;font-size:12px;gap:14px}
+.nov-about-intro .text-button{margin:8px 0 0 13px;font-size:11px;gap:9px}
+.nov-about-photo img{width:100%;height:auto}
+.nov-about-photo figcaption{display:flex;align-items:center;justify-content:space-between;gap:15px;border-top:1px solid var(--line);padding-top:11px;margin-top:9px;font-size:9px;color:var(--muted);letter-spacing:.1em}
+.nov-history{grid-template-columns:1fr 1fr;border-block:1px solid var(--line);padding-top:75px;padding-bottom:75px}
+.nov-history p:not(.eyebrow){max-width:620px;font-size:15px}
+.nov-history p+p{margin-top:14px}
+.nov-nursery-outro{background:var(--sage);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:35px;padding-block:65px}
+.nov-nursery-outro .eyebrow{margin-bottom:15px}
+.nov-nursery-outro h2{font-size:clamp(39px,4.5vw,70px)}
+.nov-nursery-outro>div:last-child{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.nov-journal-feature{grid-template-columns:.72fr 1.28fr;padding-top:70px;padding-bottom:80px}
+.nov-journal-card{position:relative;isolation:isolate;background:var(--forest);min-height:290px;color:var(--white);display:flex;align-items:flex-end;overflow:hidden}
+.nov-journal-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.nov-journal-card>span{position:relative;z-index:1;width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:6px 12px;background:rgb(16 32 24 / .77);padding:18px 21px;backdrop-filter:blur(8px)}
+.nov-journal-card>span>small{grid-column:1/-1;letter-spacing:.12em;font-size:9px}
+.nov-journal-card strong{font:600 clamp(27px,3vw,48px)/1.03 'Cormorant Garamond',Georgia,serif}
+.nov-journal-card .nov-arrow{width:38px;height:38px}
+.nov-journal-intro>p{max-width:310px;margin-bottom:0}
+.nov-article-list>article{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:clamp(26px,5vw,88px);border-top:1px solid var(--line);padding-top:30px}
+.nov-article-photo{display:block;min-height:230px;background:var(--sage)}
+.nov-article-photo img{width:100%;aspect-ratio:1.65;object-fit:cover}
+.nov-article-list h2{font-size:clamp(37px,4.1vw,67px);margin-bottom:15px}
+.nov-article-list p:not(.eyebrow){font-size:14px;max-width:490px}
+.reveal.reveal-ready{transform:translateY(7px);transition-duration:240ms}
+.reveal.reveal-ready.visible{transform:none}
+@media (hover:hover) and (pointer:fine){
+ .nov-map-panel:hover:after{opacity:1}
+ .nov-map-panel:hover .nov-map-label{transform:translateY(-4px)}
+ .nov-map-panel:hover .nov-map-detail{opacity:1;transform:none}
+ .nov-map-panel:hover .nov-arrow>svg,.nov-journal-card:hover .nov-arrow>svg,.nov-picker-choice:hover .nov-arrow>svg{transform:translate(2px,-2px)}
+ .nov-text-link:hover .nov-arrow>svg{transform:translateX(3px)}
+}
+.nov-picker{display:grid;grid-template-columns:minmax(240px,.72fr) minmax(0,1.28fr);gap:clamp(28px,6vw,95px);align-items:center;border-bottom:1px solid var(--line);padding-block:76px;background:#eff0e6}
+.nov-picker-intro>.eyebrow{margin-bottom:17px}
+.nov-picker-intro>p:not(.eyebrow){max-width:355px;font-size:14px;margin:17px 0 13px}
+.nov-picker-choices{border-top:1px solid #c5ccbd}
+.nov-picker-choice{display:grid;grid-template-columns:94px minmax(0,1fr) auto auto;align-items:center;gap:17px;padding:14px 0;border-bottom:1px solid #c5ccbd}
+.nov-picker-choice img{width:94px;height:78px;object-fit:cover;object-position:50% 65%}
+.nov-picker-choice strong{display:block;font:600 clamp(27px,3vw,45px)/1 'Cormorant Garamond',Georgia,serif}
+.nov-picker-choice small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+.nov-picker-price{color:var(--forest);font-size:12px;font-weight:700;white-space:nowrap}
+.nov-picker-choice .nov-arrow{width:35px;height:35px}
+.nov-catalog-tools{padding:15px 0 13px;border-bottom:1px solid var(--line)}
+.nov-filter-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.nov-filter-fields label{min-width:0;font-size:11px;font-weight:650;display:grid;gap:4px}
+.nov-filter-fields select{width:100%;min-height:42px;padding:7px 10px;border:1px solid #c0c7b9;background:var(--white);font-size:12px;border-radius:0}
+.nov-filter-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:8px 18px;margin-top:10px}
+.nov-filter-actions .text-button{font-size:11px;gap:8px}
+.nov-preview-button{font-size:10px;display:inline-flex;align-items:center;gap:8px;padding:8px 0;color:var(--forest);border-bottom:1px solid #9ca999;margin-top:9px}
+.nov-preview-dialog{width:min(940px,calc(100% - 28px));padding:30px}
+.nov-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.nov-preview-grid>img{width:100%;max-height:550px;aspect-ratio:4/5;object-fit:cover}
+.nov-preview-grid h2{font-size:clamp(34px,4vw,57px);overflow-wrap:anywhere}
+.nov-preview-grid .eyebrow{margin-bottom:12px}
+.nov-preview-price{font-size:23px;color:var(--forest);font-weight:650;margin:16px 0}
+.nov-preview-grid .fine-print{margin:15px 0;font-size:11px}
+.nov-preview-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.nov-preview-actions .text-button{font-size:11px;gap:7px}
+.nov-order{padding-block:65px}
+.nov-order h2,.nov-delivery h2,.nov-faq h2{font-size:clamp(42px,4.8vw,80px)}
+.nov-order ol{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:29px 0 25px;padding:0}
+.nov-order li{border-top:1px solid var(--line);padding-top:16px}
+.nov-order li>span{font-size:11px;color:var(--copper);font-weight:650}
+.nov-order h3{font-size:35px;margin:8px 0 10px}
+.nov-order p,.nov-delivery p:not(.eyebrow),.nov-faq p:not(.eyebrow){font-size:14px}
+.nov-order-links{display:flex;align-items:center;gap:13px 24px;flex-wrap:wrap}
+.nov-delivery{display:grid;grid-template-columns:.9fr 1.1fr;align-items:center;gap:clamp(28px,5vw,80px);background:var(--sage);padding-block:60px}
+.nov-delivery-options{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.nov-delivery-options article{border-top:1px solid #aeb8a9;padding-top:15px}
+.nov-delivery-options h3{margin:8px 0 10px;font-size:31px}
+.nov-delivery-options .text-button{font-size:11px;gap:9px;margin-top:9px}
+.nov-faq{display:grid;grid-template-columns:.68fr 1.32fr;align-items:start;gap:clamp(25px,5vw,80px);padding-block:68px}
+.nov-faq details{border-top:1px solid var(--line)}
+.nov-faq details:last-child{border-bottom:1px solid var(--line)}
+.nov-faq summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:17px;cursor:pointer;font-size:14px;font-weight:600;padding:16px 0}
+.nov-faq summary::-webkit-details-marker{display:none}
+.nov-faq details[open] summary svg{transform:rotate(45deg)}
+.nov-faq details>p{max-width:640px;padding:0 27px 17px 0}
+@media (max-width:1180px){
+ .site-header{gap:16px}
+ .desktop-nav{gap:15px;font-size:11px}
+ .nov-map-label{left:8px;right:8px;padding:10px}
+ .nov-picker-choice{gap:12px}
+}
+@media (max-width:900px){
+ .nov-hero-intro{grid-template-columns:1.25fr .75fr;gap:20px}
+ .nov-hero-intro h1{font-size:clamp(47px,7.1vw,66px)}
+ .nov-map-label{bottom:9px}
+ .nov-map-label .nov-arrow{width:28px;height:28px}
+ .nov-map-label .nov-arrow>svg{width:15px}
+ .nov-picker-choice{grid-template-columns:70px minmax(0,1fr) auto;gap:10px}
+ .nov-picker-choice img{width:70px;height:70px;grid-row:span 2}
+ .nov-picker-price{grid-column:2;grid-row:2;font-size:11px}
+ .nov-picker-choice .nov-arrow{grid-column:3;grid-row:1/span 2}
+}
+@media (max-width:760px){
+ .nov-home-hero{padding:22px 18px 14px}
+ .nov-hero-intro,.nov-about-intro,.nov-journal-intro,.nov-nursery,.nov-history,.nov-journal-feature,.nov-article-list>article,.nov-picker,.nov-delivery,.nov-faq{grid-template-columns:1fr;gap:21px}
+ .nov-hero-intro{margin-bottom:17px}
+ .nov-location{font-size:7.5px;letter-spacing:.13em;margin-bottom:12px}
+ .nov-hero-intro h1{font-size:clamp(48px,12vw,68px)}
+ .nov-hero-copy,.nov-about-intro>div:last-child{justify-self:start;max-width:none}
+ .nov-hero-copy>p{font-size:12px;max-width:360px;margin-bottom:11px}
+ .nov-hero-copy .button,.nov-hero-copy .text-button{min-height:39px;font-size:10px}
+ .nov-map{grid-template-columns:repeat(2,minmax(0,1fr));height:auto;gap:1px}
+ .nov-map-panel{aspect-ratio:1.26;border:0!important}
+ .nov-map-photo{object-position:center 62%}
+ .nov-map-label{min-height:67px;left:5px;right:5px;bottom:5px;padding:6px 6px 7px 8px;gap:3px}
+ .nov-map-label small{font-size:6px;margin-bottom:3px}
+ .nov-map-label strong{font-size:clamp(17px,5vw,27px)}
+ .nov-map-label .nov-arrow{width:24px;height:24px}
+ .nov-map-detail{display:none}
+ .nov-map-note{font-size:9px;margin-top:7px;gap:4px 10px}
+ .nov-map-note>div{gap:0 10px;justify-content:flex-end}
+ .nov-map-note a{min-height:29px;gap:5px}
+ .nov-map-note a svg{width:12px}
+ .nov-nursery,.nov-history,.nov-journal-feature,.nov-picker,.nov-order,.nov-delivery,.nov-faq{padding-block:43px}
+ .nov-about-hero,.nov-journal-page{padding-block:24px 39px}
+ .nov-about-hero>.breadcrumbs,.nov-journal-page>.breadcrumbs{margin-bottom:28px}
+ .nov-about-intro,.nov-journal-intro{margin-bottom:23px}
+ .nov-about-intro h1,.nov-journal-intro h1{font-size:clamp(48px,12vw,73px)}
+ .nov-about-intro>div:last-child>p,.nov-journal-intro>p,.nov-history p:not(.eyebrow),.nov-nursery h2+p,.nov-nursery-outro h2+p{font-size:13px}
+ .nov-about-photo figcaption{font-size:6.7px}
+ .nov-nursery-photo img{aspect-ratio:1.78}
+ .nov-nursery-outro{grid-template-columns:1fr;gap:12px;padding-block:45px}
+ .nov-nursery-outro>svg{width:26px}
+ .nov-journal-card{min-height:225px}
+ .nov-article-photo{min-height:0}
+ .nov-article-list>article{padding-top:18px}
+ .nov-article-list p:not(.eyebrow){font-size:13px}
+ .nov-picker-choice{padding-block:11px}
+ .nov-picker-choice small{font-size:10px}
+ .nov-filter-fields{grid-template-columns:1fr 1fr;gap:9px}
+ .nov-filter-fields label:last-child{grid-column:1/-1}
+ .nov-filter-fields select{font-size:11px}
+ .nov-preview-dialog{padding:22px;width:calc(100% - 20px)}
+ .nov-preview-grid{grid-template-columns:1fr;gap:15px}
+ .nov-preview-grid>img{aspect-ratio:1.75;max-height:195px}
+ .nov-order ol{grid-template-columns:1fr;gap:18px}
+ .nov-order h3{font-size:30px}
+ .nov-delivery-options{grid-template-columns:1fr;gap:17px}
+ .nov-faq summary,.nov-faq p:not(.eyebrow){font-size:13px}
+}
+@media (prefers-reduced-motion:no-preference){
+ .botanical-studio{height:224vh}
+ @media (max-width:760px){.botanical-studio{height:234vh}}
+}
+@media (prefers-reduced-motion:reduce){
+ .reveal.reveal-ready,.reveal.reveal-ready.visible,.nov-map-panel:hover .nov-map-label,.nov-arrow>svg{transform:none}
+ .nov-map-label,.nov-map-detail,.nov-map-panel:after,.nov-arrow>svg{transition:none}
+}

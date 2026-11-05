@@ -9,6 +9,7 @@
     "install:ci": "node scripts/install-ci.mjs",
     "dev": "next dev",
     "build": "next build --webpack",
+    "build:pages": "node scripts/build-editions.mjs",
     "start": "node scripts/preview-pages.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"
