@@ -1,4 +1,4 @@
-name: Publish nursery site
+name: Publish nursery editions
 
 on:
   push:
@@ -26,40 +26,48 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
 
-      - name: Import verified 3D scene and original team photographs
-        if: ${{ hashFiles('refined-source.zip') != '' }}
+      - name: Import verified owner and expanded editions
+        if: ${{ hashFiles('nov-editions-update.zip') != '' }}
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
           import hashlib, zipfile
           root = Path.cwd().resolve()
-          bundles = {'refined-source.zip': {'sha256': 'cfb4aaa771389f689adedf62a41fffc120cff425bdefa47daed0927d0b1793c1', 'files': {'README.md': '9d6b2b46b1a247fe5950f6d334ab869a18003a60bce7d5630db3b18a72e21cbc', 'app/about-team.tsx': 'ebfb087f4ae7f3f7c128a1e2cbe46f04b7a0934625a79b207dd694210513daf2', 'app/garden.tsx': '25a97b976d287bcbed8c6b494ada97c2ffeab3cfa2e1cfd6eb159b18773e5cbb', 'app/growth-experience.tsx': 'a2e670a30f6f640a0d014f840013f5d0970da308c985eef48f3141fc54ac2b69', 'app/layout.tsx': '90c5d6261a029a60c24acc7fc37360512f5729217163c5bc7ef998fa3c537c2d', 'app/page-content.tsx': 'deeb3c929e9af7187928432596d1c0c18508c1c2858bc18b9609cdc80c47af3d', 'app/premium-experience.tsx': 'a45d4f1a18a2073eaa462e26492b4a61e7ec0124a5f134064a0fba0328589812', 'app/refined.css': '9cd049a55343c019c8804cdb9eeaa8eed96a7e5e5907beaf3f0ecae99fd5c596', 'app/tree-scene.tsx': 'ae9a59f8220f8b8c2f317d06947388f2a0c7ac8f9f014b12d8047685d3656de0', 'package-lock.json': '6bf491aa0c86846f719f09bbcb15c837b3408576978ef526f27888f7b03e8ac2', 'package.json': 'def91596bc6178904d19639062cf56a05d80a2a738ab7088f248fc1453f009c7'}}, 'refined-model.zip': {'sha256': 'dfb1d90f5ec1e80d245201acd2be3235406d14d9f960d397d69687b67c71f29c', 'files': {'public/assets/trees/conifer-growth-4k.glb': 'a1c31bdf7b1361b8e1be85b1665667a77163ec37c71ab6e020e0ed35840ee8f2'}}, 'refined-photos.zip': {'sha256': '03c44e9860f4bc73aef46ab372305e40a77f0f392bbde55b3bd66d951b2b08de', 'files': {'public/assets/team/sources.json': '5b1d55c232805e5c9d73eea8cdba1f92946bc2b9a28c05aa52038064cb64e44e', 'public/assets/team/team-1.webp': '108f81bcfb70b30289d91b77b42033ee032b05363e84accfbbafe635a6d37f8e', 'public/assets/team/team-2.webp': 'b08fc7b391ca835c91bf68f2010c02a11ab1223c1cd87c3d17a7714edfb0b5ba', 'public/assets/team/team-3.webp': '44eca6fb4460b43dddce831c3d1f0ac0fa8e63542740e8d41b8520dc6f4acd14', 'public/assets/team/team-4.webp': '199dd36fdc7b01c5f1cabd8a822eb1aab9beeafe46dcab3c7bb7917076f7e821', 'public/assets/team/team-5.webp': '66936078a23d3f5e55d7c82fbdecbed16eeace66187662a422015c0498a7c497', 'public/assets/team/team-6.webp': 'ba4a32f0f7863a03a92db6755c770d296962059c75f4c0f033010d46d4c60d64', 'public/assets/trees/MODEL-LICENSES.md': '35067d12f9e079e227a8abd63e005c7e2c90494c4d643cf99e5f5ebae0c46d4b', 'public/assets/trees/conifer-growth-4k.json': 'f88b2fbd8cfba4dca6b1ace4d88c08bebda7034859973277ba6b6ba558150766', 'public/assets/trees/fir-adult-mobile.glb': '4728d3ecde76e8d49177d12f3d29c32c280b09fd82dcbdd044a6a260f3b7372d', 'public/assets/trees/fir-adult-mobile.json': '52df81ed61fa7114d76093a420fb71caceeee76a1c4e3e8baaa2dd9aeb6a3bcc', 'public/assets/trees/posters-provenance.json': '7d7aab0780fbf3084e1f25cb3092991b42bb773ddea2770bb4e8b8816857f4fd', 'public/assets/trees/tree-mature-poster-4k.webp': '53dca78c75f444d3a31b937b96b8f9f53346b789c6b32a4199778f3a425a74e1', 'public/assets/trees/tree-sprout-poster-4k.webp': '6ba88439eae590d8d0823e5674b4e8307f8fc990b9c56c34283d027f1fe43d32', 'public/assets/trees/tree-young-poster-4k.webp': '5ee490f933b297350afba4bbd5a6beaa554a33708bdf544b0a9fd7807226fef4'}}}
-          # Validate every archive before modifying the checked-out source.
-          for name, specification in bundles.items():
-              archive = root / name
-              if hashlib.sha256(archive.read_bytes()).hexdigest() != specification['sha256']:
-                  raise RuntimeError('Update archive failed verification: ' + name)
-              with zipfile.ZipFile(archive) as bundle:
-                  expected = specification['files']
-                  if set(bundle.namelist()) != set(expected) or len(bundle.namelist()) != len(expected):
-                      raise RuntimeError('Unexpected update files: ' + name)
-                  for item in bundle.infolist():
-                      if not (root / item.filename).resolve().is_relative_to(root):
-                          raise RuntimeError('Invalid archive path')
-                      if hashlib.sha256(bundle.read(item)).hexdigest() != expected[item.filename]:
-                          raise RuntimeError('Invalid file: ' + item.filename)
-          for name in bundles:
-              archive = root / name
-              with zipfile.ZipFile(archive) as bundle:
-                  bundle.extractall(root)
-              archive.unlink()
-          print('Imported verified 4K models, website source and original team photographs.')
+          archive = root / 'nov-editions-update.zip'
+          expected = {'.gitignore': ('ce40dd09debc2ad8aad3d5cd1a393f84d9583ae71eb5b17e22b7100d019b78e3', '7df104ab24525748b7a123c52739edcce8856c3d'), 'README.md': ('06795f958c5af6b627f4aeee9b54e842bad0dba79e19ddd8c89471935ae76201', '0a2b3cb556e26928f26ed92449bd66770b4cd755'), 'app/blog/page.tsx': ('4496dc1fd4586fc56698c897f639222535bde0cfb624fac81a824bef9294c59b', '386bd86e940d1d32757db477acff9da5a3ee0476'), 'app/garden.tsx': ('671ecd2cf0354a22591400189ff6d57b72be7ff5310230543bee1b6abddb1d29', 'aa278b4f4bbd64aa3790026d76778e5922e59670'), 'app/layout.tsx': ('0947dc2cc5e3fd78b9f4f1332bd036a411ece7b572a63e4eecac70abfd641f20', '7b8a939a7d85409f9ae97948e9bfdcfdb6e31e6a'), 'app/nov-commerce.tsx': ('b79d4bf0734c311cb55b4fb32fc04924620aadd3c51c550a4dbe533719983ff6', None), 'app/nov-editions.css': ('5317a1eca0bf0ee69c496a19d213db00b1b34f68d0a563839a5f14a1a234eff0', None), 'app/nov-editorial.tsx': ('a40226a29c0c0cafffb8fc3221f3d2c5ba609bbdf9a0dd03a05e7f855da493fd', None), 'app/nov-shop-tools.ts': ('d176d88b4ee14ef2eb309a569cea7771db50de30ef51910ad2203d54695a0fbf', None), 'app/o-nas/page.tsx': ('0baca26687e2632194205ad20b76a28f4b96b2b47441b2d026d7883ad5f33219', 'ea32076900ce61e24f3a5255079c59e5741b919a'), 'app/page.tsx': ('1f0b2573647b94e5e792d7b4d1d5c65014ea0c63abd3f0fe10467fdea45b2c55', '036ebf163183710a99c478c816d0156e96631e39'), 'app/pokupatelyam/page.tsx': ('821254f3a54beedc2e613b3c3a021bca5b112f83954faf9b68fde74755505d13', None), 'app/premium-experience.tsx': ('a9e379f84190e6a5a7bca4a33fa050cfac6f979e47aaf5d04eb408b3f7b3fadf', '19527f0ee5356ab42fa7039ca8829fe6dca8e26c'), 'app/site-types.ts': ('ca1d49de6d73d74066432462e2ba21c4db1b43715cdd8d12dfe3f6ca7d89b0c1', '4cd1926261dc67fec610f20d449d96a1ab8ede66'), 'app/sitemap.ts': ('0a62f67d55c2f7d163c8317a8d0d6ce074b91620763d2b5a311c41b5a1aa398d', 'a14fc524b2e86074db8149813111682ab7e9fb70'), 'docs/competitive-notes.md': ('ed7797fa4e910929a77f2b20be212433ec2eb1806adb1ae27c2fdf80f4a01f29', None), 'package.json': ('cbe0e3a854f07d9efb28de8e103e0dd96787a3923ee5e1567b41c31b00889880', '0889dd4787f20327e9e31968eb8209c98eee90d5'), 'public/assets/garden-map/conifers-472.webp': ('1dce41224e2d296aa478f32a0d249aabcc1564c2dedb04bd0c4f2866432988e7', None), 'public/assets/garden-map/conifers.webp': ('49c935b08c6e0984e4a223e8038d8375f1e2fae4bce024f75c28b4b0b7f2f953', None), 'public/assets/garden-map/deciduous-472.webp': ('da569b9e5ac1c1426598367fe488f3beef7614bbb6f081803a5bbb8f34f48e10', None), 'public/assets/garden-map/deciduous.webp': ('ba843c0bd3e14458d97b4882e230ad80ec8d6698500c2e1af82b77085b75db16', None), 'public/assets/garden-map/flowers-472.webp': ('65b3ff946ad87d5aba320e3e156771df4b017720e651d24094e207fa1ddc4b5a', None), 'public/assets/garden-map/flowers.webp': ('83b06db6c96d5524da0547ef0f1ff56bf740a3d19af2beff762e7dccb6eb00ae', None), 'public/assets/garden-map/fruit-472.webp': ('58fd2ea8be47a35d650a354a6dbd67153cb20dec0ede2c24e183e528a00fb681', None), 'public/assets/garden-map/fruit.webp': ('fbdbe79dd7370be14b5ae29af132394dcb3bbb695f430fcc921172778238e6a8', None), 'public/assets/garden-map/sources.json': ('5bb698a80c4ad255c2a61fa886cd2f8c05dde52a08f93e8dd45d77306650cba3', None), 'scripts/build-editions.mjs': ('6223e2324b27897fd52f267d528c7d5f1c5a5f69c44097f83d4f04406407dfbf', None)}
+          if hashlib.sha256(archive.read_bytes()).hexdigest() != '2aa375e0b52d5c046dcc2be5cb6c611e38580202599164b0904b079c9d657dc0':
+              raise RuntimeError('Edition update archive failed verification')
+          staged = {}
+          with zipfile.ZipFile(archive) as bundle:
+              if set(bundle.namelist()) != set(expected) or len(bundle.namelist()) != len(expected):
+                  raise RuntimeError('Unexpected edition files')
+              for name, (digest, base_blob) in expected.items():
+                  target = root / name
+                  if not target.resolve().is_relative_to(root):
+                      raise RuntimeError('Invalid path: ' + name)
+                  new = bundle.read(name)
+                  if hashlib.sha256(new).hexdigest() != digest:
+                      raise RuntimeError('Invalid contents: ' + name)
+                  if base_blob is None:
+                      if target.exists():
+                          raise RuntimeError('An added file already exists: ' + name)
+                  else:
+                      old = target.read_bytes()
+                      git_blob = hashlib.sha1(b'blob ' + str(len(old)).encode() + b'\0' + old).hexdigest()
+                      if git_blob != base_blob:
+                          raise RuntimeError('Source changed during preparation: ' + name)
+                  staged[target] = new
+          for target, data in staged.items():
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_bytes(data)
+          archive.unlink()
+          print('Imported both editions. Existing catalog and 4K assets were not modified.')
           PY
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          git commit -m 'Enlarge 4K tree experience and restore original nursery team photographs'
+          git commit -m 'Redesign nursery panorama and add expanded shopping edition'
           git push origin HEAD:main
 
       - name: Set up Node.js
@@ -71,26 +79,22 @@ jobs:
       - name: Install locked dependencies
         run: npm ci --no-audit --no-fund
 
-      - name: Build all website pages
+      - name: Build both website editions
         env:
           NEXT_PUBLIC_BASE_PATH: /neo-pitomnik
           NEXT_PUBLIC_SITE_ORIGIN: https://yasinsckijtema1907-eng.github.io
           NEXT_TELEMETRY_DISABLED: '1'
         run: |
-          npm run build
-          test -f out/index.html
-          test -f out/shop/index.html
-          test -f out/o-nas/index.html
-          test -f out/product/el-golubaya-blyu-daymond-el-kolyuchaya/index.html
+          npm run build:pages
+          cmp public/catalog.json out/catalog.json
+          cmp out/catalog.json out/plus/catalog.json
           test -f out/assets/trees/conifer-growth-4k.glb
-          test -f out/assets/trees/tree-mature-poster-4k.webp
-          for i in 1 2 3 4 5 6; do test -f out/assets/team/team-$i.webp; done
-          touch out/.nojekyll
+          test -f out/plus/assets/trees/conifer-growth-4k.glb
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload website
+      - name: Upload both website editions
         uses: actions/upload-pages-artifact@v3
         with:
           path: out
