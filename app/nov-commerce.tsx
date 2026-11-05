@@ -1,11 +1,12 @@
 'use client';
 
 import type {RefObject} from 'react';
-import {ArrowRight,ArrowUpRight,Download,Leaf,MapPin,Plus,Truck,X} from 'lucide-react';
+import {ArrowLeft,ArrowRight,ArrowUpRight,Download,Leaf,MapPin,Plus,Truck,X} from 'lucide-react';
 import {PageIntro} from './page-content';
 import {SiteImage,SiteLink} from './site-elements';
-import {asset,money,type Product} from './site-types';
-import {deliveryGoal,fitsPurpose,lowestPrice,matchingOptions,purposes,isPurpose,type Purpose} from './nov-shop-tools';
+import {asset,catalogPagePath,money,type Product} from './site-types';
+import {deliveryGoal,fitsPurpose,lowestPrice,matchingOptions,novPlus,purposes,isPurpose,type Purpose} from './nov-shop-tools';
+import original from './data/original.json';
 
 type Consult = (goal?:string)=>void;
 
@@ -14,7 +15,10 @@ export function PlantPicker({products,onConsult}:{products:Product[];onConsult:C
   <div className="nov-picker-intro">
    <p className="eyebrow">ПОДБОР ПО ЗАДАЧЕ</p><h2 id="picker-title">Что хотите<br/><em>посадить?</em></h2>
    <p>Начните с идеи. Мы собрали подходящие растения из каталога, чтобы вам было проще сравнить сорта и цены.</p>
-   <button className="text-button" type="button" onClick={()=>onConsult()}>Обсудить с агрономом <ArrowUpRight size={17}/></button>
+   <div className="nov-picker-actions">
+    <button className="text-button" type="button" onClick={()=>onConsult()}>Обсудить с агрономом <ArrowUpRight size={17}/></button>
+    <SiteLink className="text-button" href="/pokupatelyam/">Как заказать <ArrowRight size={17}/></SiteLink>
+   </div>
   </div>
   <div className="nov-picker-choices">{purposes.map(p=>{
    const matches=products.filter(product=>fitsPurpose(product,p.id));
@@ -29,39 +33,75 @@ export function PlantPicker({products,onConsult}:{products:Product[];onConsult:C
  </section>;
 }
 
-type CatalogToolsProps={
- purpose:Purpose|'';
- budget:string;
- size:string;
- sizes:string[];
- onPurpose:(value:Purpose|'')=>void;
- onBudget:(value:string)=>void;
- onSize:(value:string)=>void;
- onClear:()=>void;
+export type CatalogFilters={
+ height:string; container:string; minimum:string; budget:string; size:string; purpose:Purpose|'';
 };
-export function CatalogTools({purpose,budget,size,sizes,onPurpose,onBudget,onSize,onClear}:CatalogToolsProps) {
+export const initialCatalogFilters:CatalogFilters={height:'',container:'',minimum:'',budget:'',size:'',purpose:''};
+
+export function CatalogTools({filters,sizes,onChange,onClear}:{
+ filters:CatalogFilters; sizes:string[];
+ onChange:(filters:CatalogFilters)=>void; onClear:()=>void;
+}) {
+ const {height,container,minimum,budget,size,purpose}=filters;
  return <div className="nov-catalog-tools">
-  <div className="nov-filter-fields">
-   <label><span>Задача</span><select value={purpose} onChange={e=>onPurpose(isPurpose(e.target.value)?e.target.value:'')}><option value="">Любая задача</option>{purposes.map(p=><option key={p.id} value={p.id}>{p.title}</option>)}</select></label>
-   <label><span>Цена за растение</span><select value={budget} onChange={e=>onBudget(e.target.value)}><option value="">Любая цена</option>{[5000,10000,25000,50000,100000].map(value=><option key={value} value={value}>До {money(value)}</option>)}</select></label>
-   <label><span>Размер из каталога</span><select value={size} onChange={e=>onSize(e.target.value)}><option value="">Любой размер</option>{sizes.map(value=><option key={value}>{value}</option>)}</select></label>
+  <div className="original-filter-fields">
+   <label>Высота<select value={height} onChange={e=>onChange({...filters,height:e.target.value})}>
+    <option value="">Любая высота</option>{original.filters.height.map(value=><option key={value}>{value}</option>)}
+   </select></label>
+   <label>Объём контейнера<select value={container} onChange={e=>onChange({...filters,container:e.target.value})}>
+    <option value="">Любой контейнер</option>{original.filters.container.map(value=><option key={value}>{value}</option>)}
+   </select></label>
+   <fieldset>
+    <legend>Цена, ₽</legend>
+    <div>
+     <input type="number" inputMode="numeric" min={0} step="any" placeholder="От" aria-label="Цена от, ₽"
+      value={minimum} onChange={e=>onChange({...filters,minimum:e.target.value})}/>
+     <input type="number" inputMode="numeric" min={0} step="any" placeholder="До" aria-label="Цена до, ₽"
+      value={budget} onChange={e=>onChange({...filters,budget:e.target.value})}/>
+    </div>
+   </fieldset>
   </div>
-  <div className="nov-filter-actions">
-   {(purpose||budget||size)&&<button className="text-button" type="button" onClick={onClear}>Сбросить фильтры <X size={14}/></button>}
-   <SiteLink className="text-button" href="/price-list.csv" download="nov-pitomnik-price.csv">Скачать прайс <Download size={16}/></SiteLink>
-  </div>
+  {novPlus&&<div className="original-filter-fields original-filter-plus">
+   <label>Задача<select value={purpose} onChange={e=>onChange({...filters,purpose:isPurpose(e.target.value)?e.target.value:''})}>
+    <option value="">Любая задача</option>{purposes.map(p=><option key={p.id} value={p.id}>{p.title}</option>)}
+   </select></label>
+   <label>Размер из каталога<select value={size} onChange={e=>onChange({...filters,size:e.target.value})}>
+    <option value="">Любой размер</option>{sizes.map(value=><option key={value}>{value}</option>)}
+   </select></label>
+  </div>}
+  {(Object.values(filters).some(Boolean)||novPlus)&&<div className="nov-filter-actions">
+   {Object.values(filters).some(Boolean)&&<button className="text-button" type="button" onClick={onClear}>Сбросить фильтры <X size={14}/></button>}
+   {novPlus&&<SiteLink className="text-button" href="/price-list.csv" download="nov-pitomnik-price.csv">Скачать прайс <Download size={16}/></SiteLink>}
+  </div>}
  </div>;
+}
+
+export function CatalogPager({page,pages,staticLinks,onPage}:{
+ page:number;pages:number;staticLinks:boolean;onPage:(page:number)=>void;
+}) {
+ const visible=Array.from({length:pages},(_,i)=>i+1).filter(n=>n===1||n===pages||Math.abs(n-page)<=1);
+ const control=(n:number,label:string,child:React.ReactNode)=>staticLinks?
+  <SiteLink aria-label={label} aria-current={n===page?'page':undefined} href={catalogPagePath(n)+'#catalog-results'}>{child}</SiteLink>:
+  <button type="button" aria-label={label} aria-current={n===page?'page':undefined} onClick={()=>onPage(n)}>{child}</button>;
+ return <nav className="original-pagination" aria-label="Страницы каталога">
+  {page>1&&control(page-1,'Предыдущая страница',<ArrowLeft size={18}/>)}
+  {visible.map((n,i)=><span key={n}>
+   {i>0&&n>visible[i-1]+1&&<span aria-hidden="true">…</span>}
+   {control(n,'Страница '+n,n)}
+  </span>)}
+  {page<pages&&control(page+1,'Следующая страница',<ArrowRight size={18}/>)}
+ </nav>;
 }
 
 type PreviewProps={
  dialog:RefObject<HTMLDialogElement|null>; product:Product|null; variantId:number|null;
- budget:string;size:string;onVariant:(id:number|null)=>void;onAdd:(p:Product)=>void;onConsult:Consult;
+ budget:string;minimum:string;size:string;onVariant:(id:number|null)=>void;onAdd:(p:Product)=>void;onConsult:Consult;
 };
-export function ProductPreview({dialog,product,variantId,budget,size,onVariant,onAdd,onConsult}:PreviewProps) {
- const options=product?matchingOptions(product,budget,size):[];
+export function ProductPreview({dialog,product,variantId,budget,minimum,size,onVariant,onAdd,onConsult}:PreviewProps) {
+ const options=product?matchingOptions(product,budget,size,minimum):[];
  const variants=product?.variants.filter(v=>options.some(o=>o.variantId===v.id))||[];
  const variant=variants.find(v=>v.id===variantId);
- const price=product&&(budget||size)?lowestPrice([product],budget,size):null;
+ const price=product&&(budget||size||minimum)?lowestPrice([product],budget,size,minimum):null;
  return <dialog ref={dialog} className="form-dialog nov-preview-dialog" aria-label="Быстрый просмотр растения" onClick={e=>{if(e.target===e.currentTarget)dialog.current?.close()}}>
   <button type="button" className="dialog-close" aria-label="Закрыть быстрый просмотр" onClick={()=>dialog.current?.close()}><X size={24}/></button>
   {product&&<div className="nov-preview-grid">

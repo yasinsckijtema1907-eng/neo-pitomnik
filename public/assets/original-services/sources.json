@@ -1,0 +1,37 @@
+[
+  {
+    "file": "assets/original-services/posadka-rasteniy.webp",
+    "source": "https://neo-pitomnik.ru/wp-content/uploads/2026/07/posadka-1_compressed-scaled.webp?id=1629",
+    "sha256": "926b870d15997a39b22931b46652f17fd51459e7cf6095d6f712c167c637eb17"
+  },
+  {
+    "file": "assets/original-services/servisnyy-uhod.webp",
+    "source": "https://neo-pitomnik.ru/wp-content/uploads/2026/07/servisnyj-uhod-_compressed.webp?id=1630",
+    "sha256": "59d5030683837a7eb8ea8024ead64124bff5c02864cc33fd372a57f2c9815c8f"
+  },
+  {
+    "file": "assets/original-services/peresadka-krupnomerov.webp",
+    "source": "https://neo-pitomnik.ru/wp-content/uploads/2026/07/krupnomer-1_compressed.webp?id=1625",
+    "sha256": "ac7add67fd5b9ca2517a98c0b7eb04b7f805439ea9d0ca1cc652b9963450f934"
+  },
+  {
+    "file": "assets/original-services/planirovanie-uchastka.webp",
+    "source": "https://neo-pitomnik.ru/wp-content/uploads/2026/07/planirovanie-_compressed.webp?id=1628",
+    "sha256": "31314a3ad53f07525305839960b4a10eaa2789f611b16fc49b32dfd64cda333d"
+  },
+  {
+    "file": "assets/original-services/obrabotka-sada.webp",
+    "source": "https://neo-pitomnik.ru/wp-content/uploads/2026/07/obrabotka_compressed-scaled.webp?id=1627",
+    "sha256": "2461f4e1e7cc26909cd20f84f4fdcfb4e1d21f061616a7c3c0875fe48e9cab0c"
+  },
+  {
+    "file": "assets/original-services/avtopoliv.webp",
+    "source": "https://neo-pitomnik.ru/wp-content/uploads/2026/07/avtopoliv_compressed.webp?id=1622",
+    "sha256": "22aceb41f4fa3c837c39df799f51a38c3c7687da35565ad8bd3717d3a8b7f53a"
+  },
+  {
+    "file": "assets/original-services/konsultaciya-agronoma.webp",
+    "source": "https://neo-pitomnik.ru/wp-content/uploads/2026/07/konsultacziya-agronoma_compressed-scaled.webp?id=1624",
+    "sha256": "304ffc8e1bd81a397baf05b70dd0cbd9f99cd1f888ffabe5d0da666b701fea81"
+  }
+]

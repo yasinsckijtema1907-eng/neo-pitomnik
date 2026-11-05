@@ -40,13 +40,14 @@ export function catalogOptions(product:Product):CatalogOption[] {
   sizes:Object.entries({...inherited,...variant.attributes}).map(sizeEntry).filter(Boolean)
  }));
 }
-export function matchingOptions(product:Product,budget:string,size:string) {
+export function matchingOptions(product:Product,budget:string,size:string,minimum='') {
  return catalogOptions(product).filter(option=>
   (!budget || (option.price!==null && option.price<=Number(budget))) &&
+  (!minimum || (option.price!==null && option.price>=Number(minimum))) &&
   (!size || option.sizes.includes(size))
  );
 }
-export function lowestPrice(products:Product[],budget='',size='') {
- const values=products.flatMap(p=>matchingOptions(p,budget,size)).flatMap(o=>o.price!==null&&o.price>0?[o.price]:[]);
+export function lowestPrice(products:Product[],budget='',size='',minimum='') {
+ const values=products.flatMap(p=>matchingOptions(p,budget,size,minimum)).flatMap(o=>o.price!==null&&o.price>0?[o.price]:[]);
  return values.length?Math.min(...values):null;
 }
