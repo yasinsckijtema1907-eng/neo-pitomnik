@@ -26,49 +26,57 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
 
-      - name: Import verified owner and expanded editions
-        if: ${{ hashFiles('nov-editions-update.zip') != '' }}
+      - name: Import the verified original-site update
+        if: ${{ hashFiles('original-nursery-update.zip') != '' }}
         shell: bash
         run: |
           python3 - <<'PY'
+          from hashlib import sha1, sha256
           from pathlib import Path
-          import hashlib, zipfile
+          from zipfile import ZipFile
+          from subprocess import run
+
           root = Path.cwd().resolve()
-          archive = root / 'nov-editions-update.zip'
-          expected = {'.gitignore': ('ce40dd09debc2ad8aad3d5cd1a393f84d9583ae71eb5b17e22b7100d019b78e3', '7df104ab24525748b7a123c52739edcce8856c3d'), 'README.md': ('06795f958c5af6b627f4aeee9b54e842bad0dba79e19ddd8c89471935ae76201', '0a2b3cb556e26928f26ed92449bd66770b4cd755'), 'app/blog/page.tsx': ('4496dc1fd4586fc56698c897f639222535bde0cfb624fac81a824bef9294c59b', '386bd86e940d1d32757db477acff9da5a3ee0476'), 'app/garden.tsx': ('671ecd2cf0354a22591400189ff6d57b72be7ff5310230543bee1b6abddb1d29', 'aa278b4f4bbd64aa3790026d76778e5922e59670'), 'app/layout.tsx': ('0947dc2cc5e3fd78b9f4f1332bd036a411ece7b572a63e4eecac70abfd641f20', '7b8a939a7d85409f9ae97948e9bfdcfdb6e31e6a'), 'app/nov-commerce.tsx': ('b79d4bf0734c311cb55b4fb32fc04924620aadd3c51c550a4dbe533719983ff6', None), 'app/nov-editions.css': ('5317a1eca0bf0ee69c496a19d213db00b1b34f68d0a563839a5f14a1a234eff0', None), 'app/nov-editorial.tsx': ('a40226a29c0c0cafffb8fc3221f3d2c5ba609bbdf9a0dd03a05e7f855da493fd', None), 'app/nov-shop-tools.ts': ('d176d88b4ee14ef2eb309a569cea7771db50de30ef51910ad2203d54695a0fbf', None), 'app/o-nas/page.tsx': ('0baca26687e2632194205ad20b76a28f4b96b2b47441b2d026d7883ad5f33219', 'ea32076900ce61e24f3a5255079c59e5741b919a'), 'app/page.tsx': ('1f0b2573647b94e5e792d7b4d1d5c65014ea0c63abd3f0fe10467fdea45b2c55', '036ebf163183710a99c478c816d0156e96631e39'), 'app/pokupatelyam/page.tsx': ('821254f3a54beedc2e613b3c3a021bca5b112f83954faf9b68fde74755505d13', None), 'app/premium-experience.tsx': ('a9e379f84190e6a5a7bca4a33fa050cfac6f979e47aaf5d04eb408b3f7b3fadf', '19527f0ee5356ab42fa7039ca8829fe6dca8e26c'), 'app/site-types.ts': ('ca1d49de6d73d74066432462e2ba21c4db1b43715cdd8d12dfe3f6ca7d89b0c1', '4cd1926261dc67fec610f20d449d96a1ab8ede66'), 'app/sitemap.ts': ('0a62f67d55c2f7d163c8317a8d0d6ce074b91620763d2b5a311c41b5a1aa398d', 'a14fc524b2e86074db8149813111682ab7e9fb70'), 'docs/competitive-notes.md': ('ed7797fa4e910929a77f2b20be212433ec2eb1806adb1ae27c2fdf80f4a01f29', None), 'package.json': ('cbe0e3a854f07d9efb28de8e103e0dd96787a3923ee5e1567b41c31b00889880', '0889dd4787f20327e9e31968eb8209c98eee90d5'), 'public/assets/garden-map/conifers-472.webp': ('1dce41224e2d296aa478f32a0d249aabcc1564c2dedb04bd0c4f2866432988e7', None), 'public/assets/garden-map/conifers.webp': ('49c935b08c6e0984e4a223e8038d8375f1e2fae4bce024f75c28b4b0b7f2f953', None), 'public/assets/garden-map/deciduous-472.webp': ('da569b9e5ac1c1426598367fe488f3beef7614bbb6f081803a5bbb8f34f48e10', None), 'public/assets/garden-map/deciduous.webp': ('ba843c0bd3e14458d97b4882e230ad80ec8d6698500c2e1af82b77085b75db16', None), 'public/assets/garden-map/flowers-472.webp': ('65b3ff946ad87d5aba320e3e156771df4b017720e651d24094e207fa1ddc4b5a', None), 'public/assets/garden-map/flowers.webp': ('83b06db6c96d5524da0547ef0f1ff56bf740a3d19af2beff762e7dccb6eb00ae', None), 'public/assets/garden-map/fruit-472.webp': ('58fd2ea8be47a35d650a354a6dbd67153cb20dec0ede2c24e183e528a00fb681', None), 'public/assets/garden-map/fruit.webp': ('fbdbe79dd7370be14b5ae29af132394dcb3bbb695f430fcc921172778238e6a8', None), 'public/assets/garden-map/sources.json': ('5bb698a80c4ad255c2a61fa886cd2f8c05dde52a08f93e8dd45d77306650cba3', None), 'scripts/build-editions.mjs': ('6223e2324b27897fd52f267d528c7d5f1c5a5f69c44097f83d4f04406407dfbf', None)}
-          if hashlib.sha256(archive.read_bytes()).hexdigest() != '2aa375e0b52d5c046dcc2be5cb6c611e38580202599164b0904b079c9d657dc0':
-              raise RuntimeError('Edition update archive failed verification')
-          staged = {}
-          with zipfile.ZipFile(archive) as bundle:
+          archive = root / 'original-nursery-update.zip'
+          expected = {'README.md': ('b8798e79961203f321b5c3c9783655c1a765259946ffca95f44af2ccd9f8d06f', '53b0955c6c40b404ae802f021bd095de34e10f25'), 'app/2017/05/29/[slug]/page.tsx': ('ae40d6e3a9a04f6985291d954c90e0881028d977a5b91a17e738fbc2063448ad', '14c206b6ea32a2de28700c7533b843ac173cc626'), 'app/about-team.tsx': ('b6d1e374ae273eea5ed859b9afbee8706afd06ca19bbafa1aad49078a74f4983', 'cd42ee8cbcc734ded50feb1c74d150160dac81c7'), 'app/blog/[slug]/page.tsx': ('45dbb7e73ea117c0eb9851a7affa86de7624a22033c9aa8d7dd04dc9ad1d0351', '8cb97574271f596ea3b6d5f90edfe1e15fc86747'), 'app/blog/page.tsx': ('b6afdfecba958a97a18ded93e50e714917baf0c7ec1e8af63972050d6e467cd9', '2fa5ca6533e3992c42c0cab1eeff4cc498d1fbfe'), 'app/data/original.json': ('c2b59120fec77c12db7f95bec4a759a5e9e9ad7ed2730380a522542c58831c39', None), 'app/garden.tsx': ('a4fa57e21e748f9e972e834bee7ebf733dc5a94d04bad3498cc690a5352ef9c5', '967b1fe4aabf2f3296375f4374b1f1cffe3cd992'), 'app/korzina/page.tsx': ('c4383d2d2961499930524e883e472957ff82eb8717776f1a92f63ed506bb5c5d', '8319746c858912310a30a26682a54e0bd63769b1'), 'app/nov-commerce.tsx': ('9a2a38b9f1c8b54d1701dc5ea1c0e27c63a32aef63857f8152a96ea194237bff', '07cc3bf084d98341c7f8c3b464809aedb0048ad4'), 'app/nov-editions.css': ('a7ac6ab7a554b7b9d44ad9f8dd1769df5991f076368ceac405b06c8650514f40', 'd7702d57f2c22a99e841aa15450188b9be016cc4'), 'app/nov-editorial.tsx': ('f8ac70ef190118e25c55370340d4fdb99ef38d1519c3be93278ef9b7ab11b667', '803ef282e9435675cae2cd782b18bc08d80b7c59'), 'app/nov-shop-tools.ts': ('3611854cd0a33306ac599787aae0a5ef8fdc929cb01f28752282a3266d682f77', '3d6afb19980b855368bc7ab0a41c741dd8e1771c'), 'app/o-nas/page.tsx': ('9a9f2386289f025150fa2fe59658765a3345f6f2eaddc1d83c5883b96cff80c6', '5e2581e084ac43e82cdeae54ad65749b3c2f12e9'), 'app/page-content.tsx': ('95c12108a4b59f6db3640374cf20791a51d15fb853c33abd75ed2381d6ff8454', 'f9cdea47570f7e5910bcfbfb2f06c427305ad049'), 'app/page.tsx': ('adbef3c83eb22bcb3e3dc968ea2cfbb4947064ac84eb8e674f2a3b4759bd0fca', '159374d519f4403919254230bbccabfdce78bf87'), 'app/premium-experience.tsx': ('f88bccbf178c43188a9d3f00bcf6bdad3d7347228c2c51abb53187c1272a30d1', '085ae12589de7bb8e95ec32b575133976118a75b'), 'app/shop/page/[page]/page.tsx': ('53a18b2082bed13212dd491f9876c5ce1deea58ff1dca5187ea02e2109c58499', None), 'app/site-types.ts': ('4c9c31d7d399590543a987316e1cb4f66a12165f39df4a856d97e7324da0d542', 'b5f382439f8f96cb31208975c831e54cb0e125cb'), 'app/sitemap.ts': ('414f916576553af8966b87cc3a2cd129f31cdf1bdfe3f1a7dba2de3b2686733e', '6178267bd9e88cdf36682e1b96428323f50b21e2'), 'public/assets/original-services/avtopoliv.webp': ('22aceb41f4fa3c837c39df799f51a38c3c7687da35565ad8bd3717d3a8b7f53a', None), 'public/assets/original-services/konsultaciya-agronoma.webp': ('304ffc8e1bd81a397baf05b70dd0cbd9f99cd1f888ffabe5d0da666b701fea81', None), 'public/assets/original-services/obrabotka-sada.webp': ('2461f4e1e7cc26909cd20f84f4fdcfb4e1d21f061616a7c3c0875fe48e9cab0c', None), 'public/assets/original-services/peresadka-krupnomerov.webp': ('ac7add67fd5b9ca2517a98c0b7eb04b7f805439ea9d0ca1cc652b9963450f934', None), 'public/assets/original-services/planirovanie-uchastka.webp': ('31314a3ad53f07525305839960b4a10eaa2789f611b16fc49b32dfd64cda333d', None), 'public/assets/original-services/posadka-rasteniy.webp': ('926b870d15997a39b22931b46652f17fd51459e7cf6095d6f712c167c637eb17', None), 'public/assets/original-services/servisnyy-uhod.webp': ('59d5030683837a7eb8ea8024ead64124bff5c02864cc33fd372a57f2c9815c8f', None), 'public/assets/original-services/sources.json': ('5f5dd6f57a6a2b931d36dc5eaa5132a894fd5b81640dc60cbf5db63f17da769f', None), 'public/blog.json': ('66ebd3969df7309feb7f49a023c985b799a21dd08d851ff92ab83c14c66d183b', '33e1f76ed6376e1015f3e1377431eef94d02c244'), 'public/catalog.json': ('73a9d8651b2894c3c908878b804cb54d288bf77893d8e3e188353ca8e57960ca', '71d4230bc1cedd27e7dd83a3f57cbd73a9419057')}
+          deleted = {'app/legacy-redirect.tsx': 'c4c7523a8d9eea096e39d95ad0fb2a25c2f1e576'}
+          if sha256(archive.read_bytes()).hexdigest() != 'f95131d49da2e9b9416318c8e679286fa8b955ef651ffc164fde542ede18371c':
+              raise RuntimeError('The update archive differs from the verified package')
+
+          def checked_target(name, before):
+              target = root / name
+              if not target.resolve().is_relative_to(root):
+                  raise RuntimeError('Unexpected target: ' + name)
+              if before is None:
+                  if target.exists():
+                      raise RuntimeError('A new file already exists: ' + name)
+              else:
+                  data = target.read_bytes()
+                  if sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest() != before:
+                      raise RuntimeError('Source changed during preparation: ' + name)
+              return target
+
+          changes = {}
+          with ZipFile(archive) as bundle:
               if set(bundle.namelist()) != set(expected) or len(bundle.namelist()) != len(expected):
-                  raise RuntimeError('Unexpected edition files')
-              for name, (digest, base_blob) in expected.items():
-                  target = root / name
-                  if not target.resolve().is_relative_to(root):
-                      raise RuntimeError('Invalid path: ' + name)
-                  new = bundle.read(name)
-                  if hashlib.sha256(new).hexdigest() != digest:
-                      raise RuntimeError('Invalid contents: ' + name)
-                  if base_blob is None:
-                      if target.exists():
-                          raise RuntimeError('An added file already exists: ' + name)
-                  else:
-                      old = target.read_bytes()
-                      git_blob = hashlib.sha1(b'blob ' + str(len(old)).encode() + b'\0' + old).hexdigest()
-                      if git_blob != base_blob:
-                          raise RuntimeError('Source changed during preparation: ' + name)
-                  staged[target] = new
-          for target, data in staged.items():
+                  raise RuntimeError('Unexpected files in the update archive')
+              for name, (digest, before) in expected.items():
+                  target = checked_target(name, before)
+                  data = bundle.read(name)
+                  if sha256(data).hexdigest() != digest:
+                      raise RuntimeError('Unexpected file contents: ' + name)
+                  changes[target] = data
+          removals = [checked_target(name, before) for name, before in deleted.items()]
+          for target, data in changes.items():
               target.parent.mkdir(parents=True, exist_ok=True)
               target.write_bytes(data)
+          for target in removals:
+              target.unlink()
           archive.unlink()
-          print('Imported both editions. Existing catalog and 4K assets were not modified.')
+          if (root / '.git').exists():
+              run(['git','--literal-pathspecs','add','-A','--',*expected,*deleted,archive.name],check=True)
+          print(f'Imported {len(changes)} verified source files.')
           PY
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          git commit -m 'Redesign nursery panorama and add expanded shopping edition'
-          git push origin HEAD:main
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -79,7 +87,7 @@ jobs:
       - name: Install locked dependencies
         run: npm ci --no-audit --no-fund
 
-      - name: Build both website editions
+      - name: Build and validate both editions
         env:
           NEXT_PUBLIC_BASE_PATH: /neo-pitomnik
           NEXT_PUBLIC_SITE_ORIGIN: https://yasinsckijtema1907-eng.github.io
@@ -88,8 +96,24 @@ jobs:
           npm run build:pages
           cmp public/catalog.json out/catalog.json
           cmp out/catalog.json out/plus/catalog.json
-          test -f out/assets/trees/conifer-growth-4k.glb
-          test -f out/plus/assets/trees/conifer-growth-4k.glb
+          for folder in out out/plus; do
+            test -f "$folder/shop/page/16/index.html"
+            test -f "$folder/sale/index.html"
+            test -f "$folder/2017/05/29/kak-vybrat-tuyu-dlya-zhivoy-izgorodi/index.html"
+            test -f "$folder/assets/trees/conifer-growth-4k.glb"
+          done
+          test -f out/plus/price-list.csv
+
+      - name: Save the verified source
+        shell: bash
+        run: |
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Rebuild both nursery editions from the original site'
+          git push origin HEAD:main
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
